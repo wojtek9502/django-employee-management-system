@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>EMS</title>
+
+   
+
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+
+    <!-- Wlasny css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block head_block %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'index' %}">EMS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                                
+            </ul>
+            <ul class="nav navbar-nav ml-auto">
+                {% if user.is_authenticated and user.is_superuser %}
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="ManageLibrary" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            EMS
+                        </a>
+                        <div class="dropdown-menu multi-leve" aria-labelledby="ManageLibrary">
+                            
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Twój profil
+                        </a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="UserSettings">
+                            
+                        </div>
+                    </li>
+                    
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Panel administratora</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">Wyloguj</a>
+                    </li>
+                    
+                   
+                {% elif user.is_authenticated %}
+                    <li class="nav-item active">
+                        <a class="nav-link">Witaj {{user.first_name}} {{user.last_name}}</a>
+                    </li>
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Twój profil
+                        </a>
+                        
+                        <div class="dropdown-menu" aria-labelledby="UserSettings">
+                        </div>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">Wyloguj</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'accounts:login' %}">Zaloguj się</a>
+                    </li>
+                    <li class="nav-item active">
+                        
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+         {% block body_block %}{% endblock %}
+
+    <div class="footer" style="margin-bottom: 200px;"></div>
+
+
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+</body>
+</html>

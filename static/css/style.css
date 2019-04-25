@@ -1,0 +1,115 @@
+
+.page-title{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.add-obj-btn { /* przycisk pod formularzem dodawania */
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.other_create_buttons{
+    text-align: center;
+    margin-top: 40px;
+}
+
+.book_detail_description{
+    text-justify: auto
+}
+
+ul {
+  list-style: none;
+}
+
+.button {
+    margin-bottom: 10px;
+}
+
+/* kolor linkow */
+a { 
+    text-decoration: none; 
+    color: black; 
+}
+
+h1{
+    text-align: center;
+}
+
+.signup-form{
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%
+}
+
+.login-form{
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%
+}
+
+.login-btn{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sign-up-btn{
+    width: 100%;
+    margin-top: 20px;
+}
+
+.pagination_bar{
+    text-align: center;
+    margin-bottom: 40px;
+    margin-top: 10px;
+}
+
+.table-legend{
+    margin-bottom: 50px;
+}
+
+.table-legend img{
+    margin-right: 10px;
+}
+
+
+#collapse_current_borrow{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+.search-bar{
+    padding-top: 40px; 
+    padding-bottom: 20px; 
+    margin: 0 auto;
+    width: 50%;
+}
+.search-button{
+    width: 100px;
+}
+
+.search-select{
+    width: 200px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#collapse1{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#collapse2{
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+
+.add-button{
+    margin-top: 600px;
+    margin-bottom: 20px;
+}
