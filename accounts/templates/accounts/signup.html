@@ -5,15 +5,53 @@
 <div class="container signup-form">
     <h1>Zarejestruj się</h1>
     <form method="POST">
-        {% csrf_token %}
-        {% bootstrap_form user_form %}
 
-        <h3 class="page-title">Informacje dodatkowe</h3>
-        {% bootstrap_form profile_form %}
+        {% csrf_token %}
+        <div id=myGroup>           
+                    <div class="collapse show" id="collapseExample" data-parent="#myGroup">
+                        <div class="card card-body">
+                                <div class="sign-up-card-counter-text">Strona 1 z 2</div>
+                                {% bootstrap_form register_form %}
+                                <button class="btn btn-primary card-btn" onclick="test()" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
+                                        Dalej
+                                </button>
+                        </div>
+                    </div>
+                    <div class="collapse" id="collapseExample2" data-parent="#myGroup">
+                        <div class="card card-body">
+                                <div class="sign-up-card-counter-text">Strona 2 z 2</div>
+                                {% bootstrap_form profile_form %}
+                                <a class="btn btn-primary card-btn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Wstecz
+                                </a>
+                                <input type="submit" class="btn btn-primary sign-up-btn" value="Zarejestruj się">
+                        </div>
+                    </div>
+            </div>
+            <p id="form-valid-msg" class="text-center" style="visibility:hidden"></p>
         
-        <p>Rejestrując się oświadczasz, że zapoznałaś/eś się oraz akceptujesz <a style="color: #0645AD" href="{% url 'regulations' %}">Regulamin</a></p>
-        <input type="submit" class="btn btn-primary sign-up-btn" value="Zarejestruj się">
     </form>
 </div>
+
+<script>
+    function test(){
+        var form_groups = document.getElementsByClassName('form-group')
+        for(i=0; i<form_groups.length; i++){
+            text_field = form_groups[i].getElementsByClassName('form-control')[0]
+            isValid = text_field.checkValidity()
+
+            if(isValid == false){
+                formValidMsgElem = document.getElementById('form-valid-msg')
+                formValidMsgElem.innerText = "Formularz nie został wypełniony poprawnie"
+                formValidMsgElem.style.visibility = 'visible'
+                break;
+            }
+        }
+    }
+
+    $('.card-btn').on("click",function(){
+        $('html,body').animate({ scrollTop: 50 }, 'slow');
+});
+</script>
 
 {% endblock body_block %}

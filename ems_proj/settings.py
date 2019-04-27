@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+  
 ]
 
 ROOT_URLCONF = 'ems_proj.urls'
@@ -128,3 +129,6 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+SESSION_COOKIE_AGE = 10*60 #wylogowuje przy braku aktywności na stronie, wartość w sek
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True ##niszcz sesje po zamknieciu przegladarki

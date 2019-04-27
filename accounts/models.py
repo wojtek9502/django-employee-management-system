@@ -10,6 +10,7 @@ class UserProfileInfo(models.Model):
     city = models.CharField(max_length=200, verbose_name='Miasto')
     phone = models.CharField(max_length=20, verbose_name='Telefon')
     post_code = models.CharField(max_length=6, verbose_name='Kod pocztowy')
+    house_number = models.CharField(max_length=20, verbose_name='Numer domu')
 
 
     def __str__(self):
