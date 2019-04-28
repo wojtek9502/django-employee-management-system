@@ -18,12 +18,13 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.UserProfileInfo
         fields = ('phone', 'pesel', 'street',
-                  'house_number', 'city', 'post_code')
+                  'house_number', 'city', 'post_code', 'image')
         labels = {
             'phone': 'Telefon',
             'pesel': 'PESEL',
             'street': 'Ulica',
             'house_number': 'Numer domu',
             'city': 'Miasto',
-            'post_code': 'Kod pocztowy'
+            'post_code': 'Kod pocztowy',
+            'image': 'Zdjęcie'
         }

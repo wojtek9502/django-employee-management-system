@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {% load static %}
 
+
+
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
@@ -42,11 +44,18 @@
                         </div>
                     </li>
 
+
+                    <li class="nav-item active">
+                        {% if user.user_profile.image %}
+                            <img src="{{user.user_profile.image.url}}" alt="avatar_img_error" height="42" width="42">
+                        {% endif %}
+                    </li>
+
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            Twój profil
-                        </a>
+                            {{user.first_name}} {{user.last_name}} 
+                        </a>                                    
                         
                         <div class="dropdown-menu" aria-labelledby="UserSettings">
                             
@@ -63,18 +72,23 @@
                     
                    
                 {% elif user.is_authenticated %}
-                    <li class="nav-item active">
-                        <a class="nav-link">Witaj {{user.first_name}} {{user.last_name}}</a>
-                    </li>
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            Twój profil
-                        </a>
+                <li class="nav-item active">
+                    {% if user.user_profile.image %}
+                        <img src="{{user.user_profile.image.url}}" alt="avatar_img_error" height="42" width="42">
+                    {% endif %}
+                </li>
+
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        {{user.first_name}} {{user.last_name}} 
+                    </a>                                    
+                    
+                    <div class="dropdown-menu" aria-labelledby="UserSettings">
                         
-                        <div class="dropdown-menu" aria-labelledby="UserSettings">
-                        </div>
-                    </li>
+                    </div>
+                </li>
+
 
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'accounts:logout' %}">Wyloguj</a>

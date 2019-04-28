@@ -44,13 +44,7 @@ h1{
     width: 50%
 }
 
-#form-valid-msg{
-    text-align: center;
-    margin-top: 30px;
-    color: red;
-    font-weight: bold;
-    font-size: 20px;
-}
+
 
 .sign-up-card-counter-text{
     text-align: right;

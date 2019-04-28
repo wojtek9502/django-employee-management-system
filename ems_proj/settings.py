@@ -132,3 +132,6 @@ LOGOUT_REDIRECT_URL = '/'
 
 SESSION_COOKIE_AGE = 10*60 #wylogowuje przy braku aktywności na stronie, wartość w sek
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True ##niszcz sesje po zamknieciu przegladarki
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

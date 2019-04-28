@@ -4,7 +4,7 @@
 {% block body_block %}
 <div class="container signup-form">
     <h1>Zarejestruj się</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
 
         {% csrf_token %}
         <div id=myGroup>           
@@ -28,8 +28,10 @@
                         </div>
                     </div>
             </div>
-            <p id="form-valid-msg" class="text-center" style="visibility:hidden"></p>
-        
+
+            <div class="alert alert-danger" id="form-valid-msg" style="visibility:hidden; margin-top:30px;">
+                <strong>Błąd</strong> Formularz nie został wypełniony poprawnie
+            </div>       
     </form>
 </div>
 
@@ -41,8 +43,8 @@
             isValid = text_field.checkValidity()
 
             if(isValid == false){
+                //console.log(form_groups[i].getElementsByClassName('form-control')[0].getAttribute('validationMessage'))
                 formValidMsgElem = document.getElementById('form-valid-msg')
-                formValidMsgElem.innerText = "Formularz nie został wypełniony poprawnie"
                 formValidMsgElem.style.visibility = 'visible'
                 break;
             }

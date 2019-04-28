@@ -11,6 +11,7 @@ class UserProfileInfo(models.Model):
     phone = models.CharField(max_length=20, verbose_name='Telefon')
     post_code = models.CharField(max_length=6, verbose_name='Kod pocztowy')
     house_number = models.CharField(max_length=20, verbose_name='Numer domu')
+    image = models.ImageField(upload_to='avatars/', default=None, null=True, blank=True)
 
 
     def __str__(self):

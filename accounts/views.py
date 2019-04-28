@@ -11,13 +11,14 @@ def register(request):
 
     if request.method == "POST":
         user_form = forms.UserCreateForm(data=request.POST)
-        profile_form = forms.ProfileForm(data=request.POST)
+        profile_form = forms.ProfileForm(request.POST, request.FILES)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
-            user.is_active = False
+            user.is_active = True
             user.save()
             
+
             profile = profile_form.save(commit=False)
             # w modelu profile jest pole user z relacja 1do1 wiec uzupelniamy je
             profile.user = user
