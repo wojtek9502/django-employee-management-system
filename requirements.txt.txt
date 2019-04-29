@@ -1,3 +1,4 @@
 pillow
 django-braces
 django-bootstrap4
+python-decouple

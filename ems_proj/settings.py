@@ -11,20 +11,28 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from decouple import Config, RepositoryEnv
+
+
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+# Load config file
+DOTENV_FILE = BASE_DIR+'/config.ini'
+config = Config(RepositoryEnv(DOTENV_FILE))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k&)06&0=_(tb5orin9r(lp)!8$c=gbheswr(+&7zl=0#!s6oei'
+SECRET_KEY = config.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.get('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -42,6 +50,17 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap4'
 ]
+
+EMAIL_HOST = config.get('EMAIL_HOST')
+EMAIL_PORT = config.get('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config.get('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'EMS Support <noreply@example.com>'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+DEFAULT_FROM_EMAIL = "ems@support.com"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

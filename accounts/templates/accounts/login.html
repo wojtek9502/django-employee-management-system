@@ -8,9 +8,8 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         <input type="submit" class="btn btn-success login-btn" value="Zaloguj się">
-        
     </form>
-    
+    <a class="btn btn-dark login-btn" href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
 </div>
 
 {% endblock body_block %}
