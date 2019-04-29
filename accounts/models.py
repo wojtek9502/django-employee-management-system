@@ -1,10 +1,21 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
+
 
 # Create your models here.
 
+#create your own user class.
+class MyUser(AbstractUser):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('email').blank = False
+        self._meta.get_field('email')._unique = True
+        super(MyUser, self).__init__(*args, **kwargs)
+
+#Changed the defaults above.
+#Give any additional field you want to associate your user with
+
 class UserProfileInfo(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='Użytkownik', related_name='user_profile')
+    user = models.OneToOneField(MyUser, on_delete=models.CASCADE, verbose_name='Użytkownik', related_name='user_profile')
     pesel = models.CharField(max_length=11, verbose_name='PESEL')
     street = models.CharField(max_length=200, verbose_name='Ulica')
     city = models.CharField(max_length=200, verbose_name='Miasto')
@@ -16,3 +27,7 @@ class UserProfileInfo(models.Model):
 
     def __str__(self):
         return self.user.get_full_name() + ',  PESEL: ' + self.pesel
+
+#zmiana pola email usera na unique
+from django.contrib.auth.models import AbstractUser
+
