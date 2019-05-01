@@ -54,13 +54,20 @@
                     <li class="nav-item dropdown active">
                         <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            {{user.first_name}} {{user.last_name}} 
+                            {% if user.first_name %}
+                                {{user.first_name}} {{user.last_name}} 
+                            {% else %}
+                                Profil                       
+                            {% endif %}
                         </a>                                    
                         
                         <div class="dropdown-menu  manu-user-submenu" aria-labelledby="UserSettings">
-                            <a class="dropdown-item" href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
+                            {% if user.user_profile.id %}
+                                <a class="dropdown-item" href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
+                            {% endif %}
+                            
                             <a class="dropdown-item" href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
                         </div>
                     </li>

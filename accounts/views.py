@@ -61,5 +61,9 @@ class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
     form_class = forms.ProfileForm
     template_name = 'accounts/my_profile_update_form.html'
 
+    #zawsze wczytany zostanie tylko obiekt usera który jest zalogowany, nie moze on edytować innych userów
+    def get_object(self):
+        return self.request.user.user_profile
+
     def get_success_url(self):
             return reverse('index')
