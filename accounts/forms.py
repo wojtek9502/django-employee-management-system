@@ -28,3 +28,4 @@ class ProfileForm(forms.ModelForm):
             'post_code': 'Kod pocztowy',
             'image': 'Zdjęcie'
         }
+

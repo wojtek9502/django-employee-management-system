@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body_block %}
+<div class="container signup-form">
+    <h1 class="page-title">Edytuj dane kontatowe </h1>
+    
+    <form method="POST" action="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" value="Edytuj" class="btn btn-primary btn-large text-center">
+    </form>
+</div>
+{% endblock %}

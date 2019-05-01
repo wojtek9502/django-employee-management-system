@@ -26,5 +26,8 @@ urlpatterns = [ #wiazanie widoku z django z templatka login.html
             auth_views.PasswordResetCompleteView.as_view(template_name= "accounts/password_reset_complete.html"), 
             name='password_reset_complete'
         ),
+
+    path('my_profile/', views.MyProfileTemplateView.as_view(), name='my_profile'),
+    path('my_profile_update/<int:pk>/', views.UpdateMyProfileView.as_view(), name='my_profile_update'),
     
 ]  
