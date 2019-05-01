@@ -1,5 +1,10 @@
-pillow
-django-braces
-django-bootstrap4
-python-decouple
-django-debug-toolbar
+# Python 3.7
+# usage: pip install -r requirements.txt 
+
+Django==2.2
+django-bootstrap4==0.0.8
+django-braces==1.13.0
+django-debug-toolbar==1.11
+Pillow==6.0.0
+python-decouple==3.1
+
