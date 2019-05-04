@@ -50,7 +50,12 @@ INSTALLED_APPS = [
     'accounts',
     'bootstrap4',
     'debug_toolbar',
+    'django_private_chat',
 ]
+
+CHAT_WS_SERVER_HOST = 'localhost'
+CHAT_WS_SERVER_PORT = 5002
+CHAT_WS_SERVER_PROTOCOL = 'ws'
 
 EMAIL_HOST = config.get('EMAIL_HOST')
 EMAIL_PORT = config.get('EMAIL_PORT', cast=int)

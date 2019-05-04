@@ -130,3 +130,86 @@ h1{
     margin-left: 20px;
 }
 
+
+.messages-container {
+    height: 300px;
+    border: 1px solid #DDD;
+    position: relative;
+  }
+  
+  .messages {
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: auto;
+    height: 300px;
+  }
+  
+  .user-list {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 498px;
+    overflow: auto;
+    background: #EFEFEF;
+    margin: 0;
+    padding: 20px;
+    border-left: 1px solid #DDD;
+  }
+  
+  .user-list li {
+    display: block;
+    color: orange;
+    font-weight: bold;
+  }
+  
+  .username {
+    font-weight: bold;
+    color: orange;
+  }
+  
+  .timestamp {
+    font-size: 12px;
+    font-style: italic;
+    color: black;
+    text-align: right;
+  }
+  
+  .add-message {
+    margin-top: 20px;
+  }
+  
+
+
+  .msg-textarea{
+      margin-right: 50%;
+  }
+  
+  .message-msg-to-send-area{
+      width: 100%;
+      margin:0px auto 0px auto;
+  }
+
+  .btn-send-msg{
+    width: 100%;
+    margin:10px auto 0px auto;
+    height: 40px;
+
+  }
+
+  .mgs-users a{
+    text-decoration: none;
+  }
+
+
+  .mgs-users img{
+    border-radius: 50%;
+  }
+
+  .pull-left{
+    margin: 10px, 10px, 10px, 10px;
+  }
+
+  .pull-right{
+    margin: 10px, 10px, 10px, 10px;
+  }
