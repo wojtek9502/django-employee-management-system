@@ -132,7 +132,7 @@ h1{
 
 
 .messages-container {
-    height: 300px;
+    height: 400px;
     border: 1px solid #DDD;
     position: relative;
   }
@@ -141,7 +141,7 @@ h1{
     box-sizing: border-box;
     padding: 20px;
     overflow: auto;
-    height: 300px;
+    height: 400px;
   }
   
   .user-list {
@@ -206,10 +206,26 @@ h1{
     border-radius: 50%;
   }
 
+  .msg-container-img{
+    border-radius: 20px;
+  }
+
   .pull-left{
-    margin: 10px, 10px, 10px, 10px;
+    width: 100%;
   }
 
   .pull-right{
-    margin: 10px, 10px, 10px, 10px;
+    width: 100%;
+  }
+
+  .msg-container-row-who{
+    color: black;
+    font-weight: bold;
+  }
+
+  .msg-container-row-msg{
+      word-wrap: break-word;
+      padding-bottom: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
   }

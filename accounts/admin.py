@@ -5,4 +5,5 @@ from accounts import models
 
 admin.site.register(models.UserProfileInfo)
 admin.site.register(models.MyUser)
+admin.site.register(models.UserAccess)
 

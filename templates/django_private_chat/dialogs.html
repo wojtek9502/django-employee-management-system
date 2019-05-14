@@ -19,7 +19,7 @@
 <div class="container">
     <div class="row">
       <div class="col mgs-users">
-            <ul style="list-style-type: none;">
+            <ul>
                 {% for dialog in object_list %}
                     <li>
                         {% if dialog.owner == request.user %}
@@ -39,6 +39,7 @@
                                     <img id="user-{{user}}-img" src="{{user.user_profile.image.url}}" width="50" height="50">
                                     <a href="{% url 'dialogs_detail' user.username %}" id="user-{{ user.username }}" >{{ user.first_name }} {{user.last_name|slice:':2'}}.</a>
                                 {% else %}
+                                    <img src="{% static 'img/default_user_img.png' %}" style="width:50px; height:50px;"></img>
                                     <a href="{% url 'dialogs_detail' user.username %}" id="user-{{ user.username }}" >{{ user.first_name }} {{user.last_name|slice:':2'}}.</a>
                                 {% endif %}
                                 <br><br>  
@@ -50,23 +51,30 @@
       </div>
 
 
-      <div class="col-9 text-center">
-         <div id="messages" class="messages text-center">
+      <div class="col-9">
+         <div id="messages" class="messages">
                             {% for msg in active_dialog.messages.all %}
                                 <div class="row  {% if msg.read %}msg-read{% else %}msg-unread{% endif %} {% if msg.sender != request.user %}opponent{% endif %}"
                                      data-id="{{ msg.id }}">
-                                    <p class="{% if msg.sender == request.user %}pull-left{% else %}pull-right{% endif %}">
-                                                                                
-                                        {% if msg.sender.user_profile.image %}
-                                            <span class="user-img"><img src="{{msg.sender.user_profile.image.url}}" width="50" height="50"></span>
-                                        {% else %}
-                                            <b>{{ msg.sender.first_name }} {{msg.sender.last_name}}: </b>
-                                        {% endif %}
-                                        
-                                        {{ msg.text }}
-                                        <span class="timestamp">&ndash; <span
-                                                data-livestamp="{{ msg.get_formatted_create_datetime }}">{{ msg.created }}</span></span>
-                                    </p>
+                                    <div class="{% if msg.sender == request.user %}pull-left{% else %}pull-right{% endif %}">
+                                        <div class="msg-container-row-who">                                      
+                                            {% if msg.sender.user_profile.image %}
+                                                <img class="msg-container-img" src="{{msg.sender.user_profile.image.url}}" width="50px" height="50px">
+                                                {{ msg.sender.first_name }} {{msg.sender.last_name}}:
+                                            {% else %}
+                                                <img class="msg-container-img"  src="{% static 'img/default_user_img.png' %}" style="width:50px; height:50px;"></img>
+                                                {{ msg.sender.first_name }} {{msg.sender.last_name}}:
+                                            {% endif %}
+                                        </div>
+
+                                        <span class="timestamp"> 
+                                            <span data-livestamp="{{ msg.get_formatted_create_datetime }}">{{ msg.created }}</span>
+                                        </span>
+
+                                        <div class="msg-container-row-msg">    
+                                            {{ msg.text.strip }}
+                                        </div>
+                                    </div>
                                 </div>
                             {% endfor %}
                         </div>
@@ -179,14 +187,7 @@
                 return tmpl({msg: context})
             }
 
-            function setUserOnlineOffline(username, online) {
-                var elem = $("#user-" + username);
-                if (online) {
-                    elem.attr("style", "color:green");
-                } else {
-                    elem.attr("style", "color:red");
-                }
-            }
+
 
             function gone_online() {
                 $("#offline-status").hide();

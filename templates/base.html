@@ -60,7 +60,11 @@
                             {% else %}
                                 Profil                       
                             {% endif %}
-                        </a>                                    
+                        </a> 
+                        
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/msg/dialogs/">Wiadomości</a>
+                        </li>
                         
                         <div class="dropdown-menu  manu-user-submenu" aria-labelledby="UserSettings">
                             {% if user.user_profile.id %}
