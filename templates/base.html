@@ -62,10 +62,6 @@
                             {% endif %}
                         </a> 
                         
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/msg/dialogs/">Wiadomości</a>
-                        </li>
-                        
                         <div class="dropdown-menu  manu-user-submenu" aria-labelledby="UserSettings">
                             {% if user.user_profile.id %}
                                 <a class="dropdown-item" href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
@@ -75,6 +71,10 @@
                             
                             <a class="dropdown-item" href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
                         </div>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/msg/dialogs/">Wiadomości</a>
                     </li>
 
                         {% if user.is_authenticated and user.is_superuser %}

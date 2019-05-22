@@ -24,7 +24,14 @@
             <li><b>Adres: </b>{{user_profile.street}} {{user_profile.house_number}} {{user_profile.post_code}} {{user_profile.city}} </li>
             <br>
 
-            <li><b>Dołączyłeś/aś dnia: </b> {{user_profile.user.date_joined}}</li>
+            {% if user_profile.user_manager%}
+                <li><b>Kierownik: </b>{{user_profile.user_manager}} </li>
+            {% endif %}
+
+            <li><b>Przypisana zmiana: </b>{{user_profile.user_work_hours}} </li>
+            <li><b>Twój status: </b>{{user_profile.user_state}} </li>
+            <br>
+
             <li><b>Ostatnie logowanie dnia: </b> {{user_profile.user.last_login}} </li>
         </ul>
 

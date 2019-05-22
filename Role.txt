@@ -1,0 +1,46 @@
+Administrator:
+- dodaje nowe projekty
+- aktualizuje dane w tabeli projekty
+- dodajenowych pracowników
+- ustala dostępy dla pracowników
+- dodaje możliwe miejsca zmiany pobytu w pracy
+- dodaje i aktualizuje dane w tabeli zasobów
+- dodaje rekordy i tworzy tryb zmianowy w pracy i godziny tych zmianowy
+- zatwierdza urlopy 
+- zatwierdza rezerwacje zasobów
+- zmienić decyzję o przydzieleniu urlopu, ale info ma być wysłane do pracownika 
+- dodaje stawki za godzinę
+- może zmodyfikować godziny przyjścia i wyjścia jeśli coś jest nie tak
+(może nanieść poprawkę jeśli pracownik nie odbije się a potem doda zmianę miejsca)
+- może usuwać pracowników z tabel jeśli zakończą pracę w firmie
+- może zmieniać hasła użytkownikom jeśli zapomną
+- może dodawać nowe klucze do karty RFID
+
+* ma dostęp do raportów przepracowanych godzin
+* tworzy i ma dostęp do wszelkich statystyk o pracownikach tj. urlopy, godziny przepracowane,
+  stan
+
+Administrator nie może:
+- bez pozostawienia śladu w serwerze zmieniać i manipulować godzinami pracy pracownika 
+(tj. nie może wykreślić pracownika że nie był w pracy jeśli był itp., może jak wspomniano wyżej nanieść korektę ale nowa i stara zmiana ma być zaznaczona
+do podglądu dla szefa i pracownika w postaci przekreślonego rekordu wraz z signum/nickiem osoby która dokonała modyfikacji)
+-   
+
+
+User może:
+- odbijać się i dodawać przyjścia/odejścia
+- dodawać rezerwacje ale czekać na akceptację szefa
+- dodawać prośby o urlopu
+- dodawać do swojej tabeli dane - zdjęcie, dane adresowe itp
+- zmienić swoje hasło: ALE MUSI ZNAĆ POPRZEDNIE JEŚLI NIE ZMIENIA SZEF
+- dodawać opisy do każdej godziny przepracowanej z wskazaniem na projekt jakiego dotyczy
+- dodawać ręcznie godzint przyjścia i wyjścia co powinno być zaznaczone odpowiednio w systemi jako ingerencja ręczna
+
+User nie może:
+- modyfikować tabel i rekordów które nie wynikają z jego kwalifikacji = Admin - User (patrz wyżej)
+
+
+Ogólnie użytkownikom należy nadać jak najmniejsze uprawnienia do wszystkiego. Mają jedynie korzystać z danych gotowych przygotowanych przez admina a nie 
+robić nic samemu. 
+
+Korzystaj z systemu który Ci dałem ten Czeski 

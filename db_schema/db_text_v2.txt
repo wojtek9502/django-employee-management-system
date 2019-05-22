@@ -1,0 +1,168 @@
+
+Table Projekt {
+  id_projekt int [pk]
+  nazwa_projektu varchar
+  nr_projektu int
+  nr_projektu2 int
+  typ varchar
+  status varchar
+  data_rozpoczecia datetime
+  data_zakonczenia datetime
+  PM_klienta int 
+  PM_Projektu int 
+  kontakt varchar
+  uwagi varchar
+}
+
+Table Projekt_User {
+  id_projekt int
+  id_user int
+}
+
+
+Table User {
+  id_user int [pk]
+  imie varchar
+  nazwisko varchar
+  haslo varchar
+  czy_konto_aktywne boolean
+  czy_administrator boolean
+  czy_na_urlopie boolean
+}
+
+Table UserProfile {
+  id_profilu int [pk]
+  id_user int
+  id_kierownika int
+  id_stanu int
+  pesel varchar
+  ulica varchar
+  miasto varchar
+  telefon varchar
+  kod_pocztowy varchar
+  nr_domu varchar
+  avatar_link varchar
+  dzial varchar
+  stanowisko varchar
+  wymiar_etatu varchar
+  
+}
+
+Table Stan_Pracownika {
+  id_stanu_pracownika int [pk]
+
+  opis varchar
+}
+
+
+Table Urlop {
+  id_urlop int [pk]
+  id_user int
+  data_rozpoczecia date
+  data_zakonczenia date
+  stawka float
+  czy_wykorzystane boolean
+  czy_zatwierdzone boolean
+  id_usera_zatwierdzajacego int
+}
+
+
+
+
+Table Zasob {
+  id_zasob int [pk]
+  id_usera int
+  data_wypozyczenia datetime
+  data_zwrotu datetime
+  stan varchar
+  fotografia_url varchar
+  marka varchar
+  model varchar
+  uwagi varchar
+  czy_dostepny boolean
+  czy_zatwierdzone boolean
+  id_usera_zatwierdzajacego int
+  
+}
+
+
+
+Table Auto {
+  id_auta int [pk]
+  id_zasobu int
+  id_usera int
+  Marka varchar
+  Model varchar
+  rok varchar
+  rodzaj_paliwa varchar
+  fotofrafia varchar
+  nr_rejestracyjny varchar
+  nr_karty_paliw varchar
+  stan_licznika int
+}
+
+Table Delegacja{
+  id_delegacja int [pk]
+  id_usera int
+  id_wejscia_wyjscia int
+  id_zasobu int
+  miejsce varchar
+  uwagi varchar
+}
+
+Table Wejscie_Wyjscie {
+  id_wejscie_wyjscie int [pk]
+  id_user int
+  id_powodu int
+  data_przyjscia datetime
+  data_wyjscia datetime
+  czas_pracy int
+  uwagi varchar
+}
+
+Table Powod {
+  id_powodu int [pk]
+  nazwa varchar
+}
+
+Table Zmiana {
+  id_zmiany int [pk]
+  id_usera int
+  nazwa varchar
+  stawka float
+}
+
+Table Dostep {
+  id_dostepu int [pk]
+  id_user int
+  rfid varchar
+  uprawnienia varchar
+  uwagi varchar
+}
+
+
+
+Ref: Auto.id_zasobu - Zasob.id_zasob
+Ref: Auto.id_usera < User.id_user
+Ref: Zasob.id_usera > User.id_user
+Ref: Zasob.id_usera_zatwierdzajacego > User.id_user
+Ref: Urlop.id_user > User.id_user
+Ref: Urlop.id_usera_zatwierdzajacego > User.id_user
+Ref: UserProfile.id_user - User.id_user 
+Ref: UserProfile.id_kierownika - User.id_user
+Ref: User.id_user < Projekt_User.id_user
+Ref: Projekt.id_projekt < Projekt_User.id_projekt
+Ref: Stan_Pracownika.id_stanu_pracownika < UserProfile.id_stanu
+Ref: Powod.id_powodu < Wejscie_Wyjscie.id_powodu
+Ref: Delegacja.id_usera > User.id_user
+Ref: Delegacja.id_zasobu < Zasob.id_zasob
+Ref: Delegacja.id_wejscia_wyjscia - Wejscie_Wyjscie.id_wejscie_wyjscie
+Ref: Zmiana.id_usera < User.id_user
+Ref: Dostep.id_user - User.id_user 
+
+
+
+
+
+
+
