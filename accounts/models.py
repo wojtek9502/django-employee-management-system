@@ -14,6 +14,9 @@ class MyUser(AbstractUser):
     class Meta:
        app_label = 'accounts'
 
+    def __str__(self):
+        return "ID: " + str(self.id) +  " " + self.get_full_name() 
+
 class UserStateModel(models.Model):
     state_description = models.CharField(max_length=50, verbose_name='Stan użytkownika')
 
@@ -22,14 +25,14 @@ class UserStateModel(models.Model):
 
 class WorkHoursModel(models.Model):
     description = models.CharField(max_length=200, verbose_name='Opis zmiany')
-    rate_of_pay =  models.DecimalField(verbose_name='Stawka płacy', default=1.00, max_digits=3, decimal_places=2)
+    rate_of_pay = models.DecimalField(verbose_name='Stawka płacy', default=1.00, max_digits=3, decimal_places=2)
 
     def __str__(self):
             return self.description
 
 class UserProfileInfo(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE, verbose_name='Użytkownik', related_name='user_profile')
-    user_manager = models.OneToOneField(MyUser, null=True, blank=True, on_delete=models.DO_NOTHING, verbose_name='Kierownik', related_name='user_manager')
+    user_manager = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, null=True, blank=True, verbose_name='Kierownik', related_name='user_manager')
     user_work_hours = models.ForeignKey(WorkHoursModel, null=True, blank=False, on_delete=models.DO_NOTHING, verbose_name='Godziny pracy', related_name='user_work_hours')
     user_state = models.ForeignKey(UserStateModel, null=True, blank=False, on_delete=models.DO_NOTHING, verbose_name='Stan użytkownika', related_name='user_state')
     pesel = models.CharField(max_length=11, verbose_name='PESEL')

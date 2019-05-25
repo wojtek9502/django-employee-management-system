@@ -58,7 +58,6 @@ class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
 
     model = models.UserProfileInfo
-    form_class = forms.ProfileForm
     template_name = 'accounts/my_profile_update_form.html'
 
     #zawsze wczytany zostanie tylko obiekt usera który jest zalogowany, nie moze on edytować innych userów
@@ -67,3 +66,10 @@ class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
             return reverse('index')
+
+
+    def get_form_class(self):
+        if self.request.user.is_superuser:
+            return forms.ProfileForm
+        else:
+            return forms.ProfileUpdateForm

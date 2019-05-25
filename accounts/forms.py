@@ -18,6 +18,31 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.UserProfileInfo
         fields = ('phone', 'pesel', 'street',
+                  'house_number', 'city', 'post_code', 'image',
+                  'user_manager', 'user_work_hours', 'user_state')
+        labels = {
+            'user_manager': 'Kierownik',
+            'user_work_hours': 'Godziny pracy',
+            'user_state': 'Status pracownika',
+            'phone': 'Telefon',
+            'pesel': 'PESEL',
+            'street': 'Ulica',
+            'house_number': 'Numer domu',
+            'city': 'Miasto',
+            'post_code': 'Kod pocztowy',
+            'image': 'Zdjęcie'
+        }
+
+    def __init__(self, **kwargs):
+        super(ProfileForm, self).__init__(**kwargs)
+        self.fields['user_manager'].queryset = models.MyUser.objects.filter(is_superuser=True)
+
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.UserProfileInfo
+        fields = ('phone', 'pesel', 'street',
                   'house_number', 'city', 'post_code', 'image')
         labels = {
             'phone': 'Telefon',
@@ -28,4 +53,3 @@ class ProfileForm(forms.ModelForm):
             'post_code': 'Kod pocztowy',
             'image': 'Zdjęcie'
         }
-

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+
+{% block body_block %}
+
+    <h1>Your Projects</h1>
+    <ul>
+    {% for project in user_projects_list %}
+        <li>{{project}}</li>
+    {% empty %}
+        <li>No projects yet.</li>
+    {% endfor %}
+    </ul>
+
+{% endblock body_block %}

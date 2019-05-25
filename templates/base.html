@@ -29,18 +29,24 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Left menu elems -->
+            {% if user.is_authenticated %}
             <ul class="navbar-nav">
-                                
+                <a class="nav-link" href="{% url 'projects_list' %}">Projekty</a>
             </ul>
+            {% endif %}
+
+
+            <!-- Right menu elems -->
             <ul class="nav navbar-nav ml-auto">
                 {% if user.is_authenticated %}
 
                     <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="ManageLibrary" data-toggle="dropdown" aria-haspopup="true"
+                        <a class="nav-link dropdown-toggle" href="#" id="EMS" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             EMS
                         </a>
-                        <div class="dropdown-menu multi-leve" aria-labelledby="ManageLibrary">
+                        <div class="dropdown-menu multi-leve" aria-labelledby="EMS">
                             
                         </div>
                     </li>
