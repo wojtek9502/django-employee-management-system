@@ -5,15 +5,26 @@
     text-align: center;
 }
 
-.add-obj-btn { /* przycisk pod formularzem dodawania */
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.detail-view-btn{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left:50%;
+  margin-right: 50%;
 }
 
-.other_create_buttons{
-    text-align: center;
+.detail-view-content{
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+.btn-action { /* przycisk pod formularzem*/
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+
+.create-btn{
     margin-top: 40px;
+    width: 200px;
 }
 
 .book_detail_description{

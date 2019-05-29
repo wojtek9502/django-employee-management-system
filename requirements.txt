@@ -8,5 +8,6 @@ django-debug-toolbar==1.11
 Pillow==6.0.0
 python-decouple==3.1
 django-private-chat==0.2.2
-mysqlclient==1.4.2.
+mysqlclient==1.4.2
+django-bootstrap-datepicker-plus==3.0.5
 

@@ -15,7 +15,7 @@ class ProjectModel(models.Model):
     start_date = models.DateField(verbose_name='Data rozpoczęcia')
     end_date = models.DateField(verbose_name='Data zakończenia')
     contact = models.CharField(max_length=500, verbose_name='Kontakt')
-    commants = models.CharField(max_length=500, verbose_name='Uwagi', null=True, blank=True)
+    commants = models.TextField(max_length=500, verbose_name='Uwagi', null=True, blank=True)
 
     def __str__(self):
         return self.name+" number: "+ str(self.number) +" number2: " + str(self.number_2) + " project_pm: " + self.id_project_pm.get_full_name()

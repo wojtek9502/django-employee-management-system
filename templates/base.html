@@ -8,9 +8,6 @@
     <meta charset="UTF-8">
     <title>EMS</title>
             
-       
-    <!-- <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" type="text/css" media="all"> -->
-    <!-- <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="all"> -->
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
 
@@ -23,7 +20,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'index' %}">EMS</a>
+        <a class="navbar-brand" href="{% url 'ems_app:index' %}">EMS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,7 +29,7 @@
             <!-- Left menu elems -->
             {% if user.is_authenticated %}
             <ul class="navbar-nav">
-                <a class="nav-link" href="{% url 'projects_list' %}">Projekty</a>
+                <a class="nav-link" href="{% url 'ems_app:projects_list' %}">Projekty</a>
             </ul>
             {% endif %}
 
@@ -110,7 +107,7 @@
 
          {% block content %}{% endblock %}
 
-
+        
          {% block extra_js %}{% endblock %}
 
          <script src="{% static 'js/popper.min.js' %}"></script>

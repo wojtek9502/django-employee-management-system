@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block head_block %}
+    {{ form.media }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <h1 class="page-title">Utwórz projekt</h1>
+
+    <form method="POST" action="{% url 'ems_app:project_create' %}" class="create-view">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="text-center">
+            <input type="submit" value="Utwórz" class="btn-action btn btn-primary btn-large">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $('.datepicker').datepicker({
+        format: 'mm/dd/yyyy',
+    });
+</script>
+{% endblock %}
