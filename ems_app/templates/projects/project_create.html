@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block head_block %}
     {{ form.media }}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
 {% endblock %}
 
 {% block body_block %}
@@ -20,12 +21,4 @@
     </form>
 </div>
 
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    $('.datepicker').datepicker({
-        format: 'mm/dd/yyyy',
-    });
-</script>
 {% endblock %}

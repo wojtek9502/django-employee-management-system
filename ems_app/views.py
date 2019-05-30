@@ -56,9 +56,9 @@ class ProjectDeleteView(LoginRequiredMixin, SuperuserRequiredMixin, DeleteView):
     template_name = 'projects/project_delete.html'
 
 class ProjectUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
-    login_url = reverse_lazy('no_permission')
+    login_url = reverse_lazy('accounts:login')
     model = models.ProjectModel
-    success_url = reverse_lazy("accounts:login")
+    success_url = reverse_lazy("ems_app:projects_list")
 
     context_object_name = "project"
     form_class = forms.ProjectForm
@@ -67,6 +67,7 @@ class ProjectUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
 
 class ProjectCreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
     login_url = reverse_lazy('accounts:login')
+    success_url = reverse_lazy("ems_app:projects_list")
 
     form_class = forms.ProjectForm
     model = models.ProjectModel

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, DetailView, UpdateView
 from braces.views import LoginRequiredMixin
+from dal import autocomplete
 
 from accounts import models
 from accounts import forms
@@ -73,3 +74,17 @@ class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
             return forms.ProfileForm
         else:
             return forms.ProfileUpdateForm
+
+
+class UserAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return models.MyUser.objects.none()
+
+        qs = models.MyUser.objects.all()
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs

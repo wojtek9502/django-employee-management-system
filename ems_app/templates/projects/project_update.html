@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block head_block %}
-    {{ form.media }}
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+
+    {{ form.media }}
+
 {% endblock %}
 
 {% block body_block %}
