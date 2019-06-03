@@ -1,118 +1,250 @@
 <!DOCTYPE html>
-{% load static %}
-{% load bootstrap4 %}
+<html lang="en">
+    {% load static %}
+    {% load bootstrap4 %}
 
-
-
-<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <title>EMS</title>
-            
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
-
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">
+    <link rel="stylesheet" href="{% static '/css/style-bootstrap.css' %}">
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    
-
-    <!-- Wlasny css -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     {% block head_block %}{% endblock %}
+
+<script>
+jQuery(function($) {
+
+$(".sidebar-dropdown > a").click(function() {
+    $(".sidebar-submenu").slideUp(200);
+    if ($(this).parent().hasClass("active")) {
+        $(".sidebar-dropdown").removeClass("active");
+        $(this).parent().removeClass("active");
+    } else {
+        $(".sidebar-dropdown").removeClass("active");
+        $(this).next(".sidebar-submenu").slideDown(200);
+        $(this).parent().addClass("active");
+    }
+});
+
+$("#close-sidebar").click(function() {
+    $(".page-wrapper").removeClass("toggled");
+});
+
+$("#show-sidebar").click(function() {
+    $(".page-wrapper").addClass("toggled");
+});
+});
+</script>
+
+
+
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'ems_app:index' %}">EMS</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <!-- Left menu elems -->
-            {% if user.is_authenticated %}
-            <ul class="navbar-nav">
-                <a class="nav-link" href="{% url 'ems_app:projects_list' %}">Projekty</a>
-            </ul>
-            {% endif %}
 
+{% if user.is_authenticated %}
+      <div class="page-wrapper chiller-theme toggled">
+        <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+          <i class="fas fa-bars"></i>
+        </a>
+        <nav id="sidebar" class="sidebar-wrapper">
+          <div class="sidebar-content">
+            <div class="sidebar-brand">
+              <a href="{% url 'ems_app:index' %}">EMS</a>
+              <div id="close-sidebar">
+                <i class="fas fa-times"></i>
+              </div>
+            </div>
 
-            <!-- Right menu elems -->
-            <ul class="nav navbar-nav ml-auto">
-                {% if user.is_authenticated %}
+            <div class="sidebar-header">
+              <div class="user-pic">
+                  {% if user.user_profile.image %}
+                      <img class="img-responsive img-rounded" src="{{user.user_profile.image.url}}" alt="User picture">
+                  {% else %}
+                      <img class="img-responsive img-rounded" src="{% static '/img/default_user_img.png' %}" alt="User picture">
+                  {% endif %}
+              </div>
 
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="EMS" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            EMS
+              <div class="user-info">
+                <span class="user-name">{{ user.first_name }}
+                  <strong>{{ user.last_name }}</strong>
+                </span>
+
+                <span class="user-role">
+                  {% if user.is_staff %}
+                      Administrator
+                  {% else %}
+                      Użytkownik
+                  {% endif %}
+                </span>
+
+              </div>
+            </div>
+            <div class="sidebar-menu">
+              <ul>
+                <li class="header-menu">
+                  <span>Menu</span>
+                </li>
+
+                <li>
+                  <a href="{% url 'ems_app:projects_list' %}">
+                    <i class="fa fa-file-alt"></i>
+                    <span>Projekty</span>
+                  </a>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <a href="#">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span>E-commerce</span>
+                    <span class="badge badge-pill badge-danger">3</span>
+                  </a>
+                  <div class="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <a href="#">Products
+
                         </a>
-                        <div class="dropdown-menu multi-leve" aria-labelledby="EMS">
-                            
-                        </div>
-                    </li>
+                      </li>
+                      <li>
+                        <a href="#">Orders</a>
+                      </li>
+                      <li>
+                        <a href="#">Credit cart</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="sidebar-dropdown">
+                  <a href="#">
+                    <i class="far fa-gem"></i>
+                    <span>Components</span>
+                  </a>
+                  <div class="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <a href="#">General</a>
+                      </li>
+                      <li>
+                        <a href="#">Panels</a>
+                      </li>
+                      <li>
+                        <a href="#">Tables</a>
+                      </li>
+                      <li>
+                        <a href="#">Icons</a>
+                      </li>
+                      <li>
+                        <a href="#">Forms</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="sidebar-dropdown">
+                  <a href="#">
+                    <i class="fa fa-chart-line"></i>
+                    <span>Charts</span>
+                  </a>
+                  <div class="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <a href="#">Pie chart</a>
+                      </li>
+                      <li>
+                        <a href="#">Line chart</a>
+                      </li>
+                      <li>
+                        <a href="#">Bar chart</a>
+                      </li>
+                      <li>
+                        <a href="#">Histogram</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="sidebar-dropdown">
+                  <a href="#">
+                    <i class="fa fa-globe"></i>
+                    <span>Maps</span>
+                  </a>
+                  <div class="sidebar-submenu">
+                    <ul>
+                      <li>
+                        <a href="#">Google maps</a>
+                      </li>
+                      <li>
+                        <a href="#">Open street map</a>
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li class="header-menu">
+                  <span></span>
+                </li>
 
-
-                    <li class="nav-item active menu-profile-image">
-                        {% if user.user_profile.image %}
-                            <img src="{{user.user_profile.image.url}}" alt="avatar_img_error" height="42" width="42">
-                        {% endif %}
-                    </li>
-
-                    <li class="nav-item dropdown active">
-                        <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            {% if user.first_name %}
-                                {{user.first_name}} {{user.last_name}} 
-                            {% else %}
-                                Profil                       
-                            {% endif %}
-                        </a> 
-                        
-                        <div class="dropdown-menu  manu-user-submenu" aria-labelledby="UserSettings">
-                            {% if user.user_profile.id %}
-                                <a class="dropdown-item" href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
-                            {% endif %}
-                            
-                            <a class="dropdown-item" href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
-                        </div>
-                    </li>
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/msg/dialogs/">Wiadomości</a>
-                    </li>
-
-                        {% if user.is_authenticated and user.is_superuser %}
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{% url 'admin:index' %}">Panel administratora</a>
-                            </li>
-                        {% endif %}
-
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'accounts:logout' %}">Wyloguj</a>
-                    </li>
-
-
-                    {% else %}
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'accounts:login' %}">Zaloguj się</a>
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fa fa-users"></i>
+                      <span>Twój profil</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li>
+                          <a href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'accounts:signup' %}">Zarejestruj się</a>
+                        <li>
+                          <a href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
                         </li>
+                        <li>
+                          <a href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+
+                {% if user.is_authenticated and user.is_superuser %}
+                <li>
+                  <a href="{% url 'admin:index' %}">
+                    <i class="fa fa-cog"></i>
+                    <span>Panel administratora</span>
+                  </a>
+                </li>
                 {% endif %}
-            </ul>
-        </div>
-    </nav>
 
-         {% block body_block %}{% endblock %}
-
-         {% block content %}{% endblock %}
-
-        
-         {% block extra_js %}{% endblock %}
-
-         <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+                <li>
+                  <a href="{% url 'accounts:logout' %}">
+                    <i class="fa fa-sign-out-alt"></i>
+                    <span>Wyloguj</span>
+                  </a>
+                </li>
+                
+              </ul>
+            </div>
+            <!-- sidebar-menu  -->
+          </div>
+        </nav>
+{% endif %}
+  
+  <!-- sidebar-wrapper  -->
+  <main class="page-content">
+    <div class="container-fluid">
+        {% block body_block %}{% endblock %}
+    </div>
+  </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    
 </body>
-</html>
 
+</html>

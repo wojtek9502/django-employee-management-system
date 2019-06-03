@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+
+
+
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>EMS</title>
+            
+    <!-- Bootstrap4 -->
+    <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    
+
+    <!-- Wlasny css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block head_block %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'ems_app:index' %}">EMS</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <!-- Left menu elems -->
+            {% if user.is_authenticated %}
+            <ul class="navbar-nav">
+                <a class="nav-link" href="{% url 'ems_app:projects_list' %}">Projekty</a>
+            </ul>
+            {% endif %}
+
+
+            <!-- Right menu elems -->
+            <ul class="nav navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="EMS" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            EMS
+                        </a>
+                        <div class="dropdown-menu multi-leve" aria-labelledby="EMS">
+                            
+                        </div>
+                    </li>
+
+
+                    <li class="nav-item active menu-profile-image">
+                        {% if user.user_profile.image %}
+                            <img src="{{user.user_profile.image.url}}" alt="avatar_img_error" height="42" width="42">
+                        {% endif %}
+                    </li>
+
+                    <li class="nav-item dropdown active">
+                        <a class="nav-link dropdown-toggle" href="#" id="UserSettings" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            {% if user.first_name %}
+                                {{user.first_name}} {{user.last_name}} 
+                            {% else %}
+                                Profil                       
+                            {% endif %}
+                        </a> 
+                        
+                        <div class="dropdown-menu  manu-user-submenu" aria-labelledby="UserSettings">
+                            {% if user.user_profile.id %}
+                                <a class="dropdown-item" href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
+                            {% endif %}
+                            
+                            <a class="dropdown-item" href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/msg/dialogs/">Wiadomości</a>
+                    </li>
+
+                        {% if user.is_authenticated and user.is_superuser %}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'admin:index' %}">Panel administratora</a>
+                            </li>
+                        {% endif %}
+
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">Wyloguj</a>
+                    </li>
+
+
+                    {% else %}
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'accounts:login' %}">Zaloguj się</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'accounts:signup' %}">Zarejestruj się</a>
+                        </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+         {% block body_block %}{% endblock %}
+
+         {% block content %}{% endblock %}
+
+        
+         {% block extra_js %}{% endblock %}
+
+         <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>
+
