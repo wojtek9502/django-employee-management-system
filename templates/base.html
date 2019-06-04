@@ -101,28 +101,13 @@ $("#show-sidebar").click(function() {
                   </a>
                 </li>
 
-                <li class="sidebar-dropdown">
-                  <a href="#">
-                    <i class="fa fa-shopping-cart"></i>
-                    <span>E-commerce</span>
-                    <span class="badge badge-pill badge-danger">3</span>
+                <li>
+                  <a href="{% url 'holiday_app:holidays_list' %}">
+                    <i class="fa fa-file-alt"></i>
+                    <span>Urlopy</span>
                   </a>
-                  <div class="sidebar-submenu">
-                    <ul>
-                      <li>
-                        <a href="#">Products
-
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">Orders</a>
-                      </li>
-                      <li>
-                        <a href="#">Credit cart</a>
-                      </li>
-                    </ul>
-                  </div>
                 </li>
+
                 <li class="sidebar-dropdown">
                   <a href="#">
                     <i class="far fa-gem"></i>

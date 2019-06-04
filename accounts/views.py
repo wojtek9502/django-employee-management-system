@@ -88,3 +88,16 @@ class UserAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(first_name__istartswith=self.q)
 
         return qs
+
+class UserAdminsAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor !
+        if not self.request.user.is_authenticated:
+            return models.MyUser.objects.none()
+
+        qs = models.MyUser.objects.filter(is_superuser=True)
+
+        if self.q:
+            qs = qs.filter(first_name__istartswith=self.q)
+
+        return qs

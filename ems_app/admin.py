@@ -3,7 +3,6 @@ from ems_app import models
 
 
 # Register your models here.
-admin.site.register(models.HolidayModel)
 admin.site.register(models.ResourceStateModel)
 admin.site.register(models.ResourceModel)
 admin.site.register(models.FuelType)

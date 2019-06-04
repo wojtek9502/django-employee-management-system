@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block head_block %}
+    {{ form.media }}
+    <link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <h1 class="page-title">Utwórz urlop</h1>
+
+    <form method="POST" action="{% url 'holiday_app:holiday_create' %}" class="create-view">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="text-center">
+            <input type="submit" value="Utwórz" class="btn-action btn btn-primary btn-large">
+        </div>
+    </form>
+</div>
+
+{% endblock %}

@@ -7,12 +7,6 @@ from django.db.models import Q
 
 # Create your views here.
 
-class HomePage(LoginRequiredMixin, TemplateView):
-    template_name = "index.html"
-
-class NoPermsPage(TemplateView):
-    template_name = "no_perms.html"
-
 class ProjectListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('login')
     model = models.ProjectModel

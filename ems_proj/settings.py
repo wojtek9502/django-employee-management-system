@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_private_chat',
     'project_app',
+    'holiday_app',
     'ems_app',
 ]
 
