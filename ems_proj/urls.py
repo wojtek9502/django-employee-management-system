@@ -26,6 +26,7 @@ from django_private_chat import urls as django_private_chat_urls
 
 urlpatterns = [
     path('', include('ems_app.urls')),
+    path('projects/', include('project_app.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),

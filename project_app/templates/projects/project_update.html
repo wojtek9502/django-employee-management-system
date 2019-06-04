@@ -12,7 +12,7 @@
 {% block body_block %}
 <div class="container">
     <h1>Edytuj projekt</h1>
-    <form method="POST" action="{% url 'ems_app:project_update' pk=project.pk %}" class="update-form">
+    <form method="POST" action="{% url 'project_app:project_update' pk=project.pk %}" class="update-form">
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="text-center">

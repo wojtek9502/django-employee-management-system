@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'debug_toolbar',
     'django_private_chat',
+    'project_app',
     'ems_app',
 ]
 

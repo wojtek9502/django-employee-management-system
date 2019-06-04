@@ -12,7 +12,7 @@
 <div class="container">
     <h1 class="page-title">Utwórz projekt</h1>
 
-    <form method="POST" action="{% url 'ems_app:project_create' %}" class="create-view">
+    <form method="POST" action="{% url 'project_app:project_create' %}" class="create-view">
         {% csrf_token %}
         {% bootstrap_form form %}
         <div class="text-center">

@@ -6,9 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>EMS</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <meta name="description" content="Employee Management System">
 
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
@@ -96,7 +95,7 @@ $("#show-sidebar").click(function() {
                 </li>
 
                 <li>
-                  <a href="{% url 'ems_app:projects_list' %}">
+                  <a href="{% url 'project_app:projects_list' %}">
                     <i class="fa fa-file-alt"></i>
                     <span>Projekty</span>
                   </a>
@@ -191,25 +190,27 @@ $("#show-sidebar").click(function() {
                   <span></span>
                 </li>
 
-                <li class="sidebar-dropdown">
-                    <a href="#">
-                      <i class="fa fa-users"></i>
-                      <span>Twój profil</span>
-                    </a>
-                    <div class="sidebar-submenu">
-                      <ul>
-                        <li>
-                          <a href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
-                        </li>
-                        <li>
-                          <a href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
-                        </li>
-                        <li>
-                          <a href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </li>
+                {% if user.user_profile %}
+                  <li class="sidebar-dropdown">
+                      <a href="#">
+                        <i class="fa fa-users"></i>
+                        <span>Twój profil</span>
+                      </a>
+                      <div class="sidebar-submenu">
+                        <ul>
+                          <li>
+                            <a href="{% url 'accounts:my_profile' %}">Wyświetl profil</a>
+                          </li>
+                          <li>
+                            <a href="{% url 'accounts:my_profile_update' pk=user.user_profile.id %}">Edytuj profil</a>
+                          </li>
+                          <li>
+                            <a href="{% url 'accounts:password_reset' %}">Zresetuj hasło</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                {% endif %}
 
                 {% if user.is_authenticated and user.is_superuser %}
                 <li>
