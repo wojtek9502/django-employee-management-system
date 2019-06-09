@@ -28,6 +28,8 @@ class HolidayListView(LoginRequiredMixin, ListView):
         if date_year is not None:
             if search_type == "year":
                 qs = qs.filter( Q(start_date__icontains=date_year) | Q(end_date__icontains=date_year) )
+        
+        qs = qs.order_by('start_date')
 
         return qs
 
@@ -43,5 +45,27 @@ class HolidayCreateView(LoginRequiredMixin, CreateView):
     def get_form_kwargs(self, *args, **kwargs):
         form_kwargs = super(HolidayCreateView, self).get_form_kwargs(*args, **kwargs)
         form_kwargs['user'] = self.request.user
-        print(form_kwargs)
         return form_kwargs
+
+class HolidayDeleteView(LoginRequiredMixin, SuperuserRequiredMixin, DeleteView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.HolidayModel
+    success_url = reverse_lazy("holiday_app:holidays_list")
+
+    context_object_name = "holiday"
+    template_name = 'holiday/holiday_delete.html'
+
+class HolidayDetailView(LoginRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.HolidayModel
+    context_object_name = "holiday"
+    template_name = 'holiday/holiday_detail.html'
+
+class HolidayUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.HolidayModel
+    success_url = reverse_lazy("holiday_app:holidays_list")
+
+    context_object_name = "holiday"
+    form_class = forms.HolidayUpdateForm
+    template_name = 'holiday/holiday_update.html'

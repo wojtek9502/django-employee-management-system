@@ -37,11 +37,11 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Opcje</th>
+                    <th scope="col">Lp.</th>
                     <th scope="col">Nazwa</th>
                     <th scope="col">Klient</th>
                     <th scope="col">PM</th>
                     <th scope="col">Numer</th>
-                    <th scope="col">Numer2</th>
                     <th scope="col">Status</th>
                     <th scope="col">Data rozpoczęcia</th>
                     <th scope="col">Data zakończenia</th>
@@ -58,12 +58,11 @@
                         {% endif %}
                     </td>
                     
-
+                    <td>{{ forloop.counter }}</td>
                     <td>{{project.name|check_empty}}</td>
                     <td>{{project.client|check_empty}}</td>
                     <td>{{project.id_project_pm.get_full_name|check_empty}}</td>
                     <td>{{project.number|check_empty}}</td>
-                    <td>{{project.number_2|check_empty}}</td>
                     <td>{{project.status|check_empty}}</td>
                     <td>{{project.start_date|check_empty}}</td>
                     <td>{{project.end_date|check_empty}}</td>

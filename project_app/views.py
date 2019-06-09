@@ -33,16 +33,17 @@ class ProjectListView(LoginRequiredMixin, ListView):
             elif search_type == "PM":
                 qs = qs.filter( Q(id_project_pm__first_name__icontains=search_query) | Q(id_project_pm__last_name__icontains=search_query) )
 
+        qs = qs.order_by('end_date')
         return qs
 
 class ProjectDetailView(LoginRequiredMixin, DetailView):
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('accounts:login')
     model = models.ProjectModel
     context_object_name = "user_project"
     template_name = 'projects/project_detail.html'
 
 class ProjectDeleteView(LoginRequiredMixin, SuperuserRequiredMixin, DeleteView):
-    login_url = reverse_lazy('no_permission')
+    login_url = reverse_lazy('accounts:login')
     model = models.ProjectModel
     success_url = reverse_lazy("project_app:projects_list")
 

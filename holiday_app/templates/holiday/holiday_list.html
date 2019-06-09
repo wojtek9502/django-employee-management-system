@@ -32,6 +32,8 @@
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Opcje</th>
+                    <th scope="col">Lp.</th>
+                    <th scope="col">Pracownik</th>
                     <th scope="col">Data rozpoczęcia</th>
                     <th scope="col">Data zakończenia</th>
                     <th scope="col">Czy zatwierdzony</th>
@@ -42,14 +44,19 @@
                 {% for holiday in holiday_list %}
                 <tr>
                     <td>
-  
+                            <a href="{% url 'holiday_app:holiday_detail' pk=holiday.pk %}"><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20"></a>
+                        {% if user.is_superuser %}
+                            <a href="{% url 'holiday_app:holiday_delete' pk=holiday.pk %}"><img src="{% static 'website_icons/del_ico.png' %}" alt="Usuń" width="20" height="20"></a>
+                            <a href="{% url 'holiday_app:holiday_update' pk=holiday.pk %}"><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edytuj" width="20" height="20"></a>
+                        {% endif %}
                     </td>
                     
-
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{holiday.user.get_full_name}}</td>
                     <td>{{holiday.start_date|check_empty}}</td>
                     <td>{{holiday.end_date|check_empty}}</td>
                     <td>{% if holiday.is_approved %} Tak {% else %} Nie {% endif %}</td>
-                    <td>{{holiday.approver_user_id.get_full_name|check_empty}}</td>
+                    <td>{{holiday.approver_user.get_full_name}} </td>
                 </tr>
                 {% endfor %}
             </tbody>
