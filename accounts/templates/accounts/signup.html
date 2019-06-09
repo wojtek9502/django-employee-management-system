@@ -52,7 +52,19 @@
     }
 
     $('.card-btn').on("click",function(){
+        if ($('#collapseExample').attr("class").indexOf("show") >= 0){
+            $('#collapseExample').removeClass('show')
+            $('#collapseExample2').addClass("show")
+        } else {
+            $('#collapseExample2').removeClass('show')
+            $('#collapseExample').addClass("show")
+        }
+
         $('html,body').animate({ scrollTop: 50 }, 'slow');
+       
+
+        console.log()
+        console.log()
 });
 </script>
 

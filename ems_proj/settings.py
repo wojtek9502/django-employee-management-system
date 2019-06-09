@@ -178,7 +178,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/login/'
 LOGOUT_REDIRECT_URL = '/'
 
 SESSION_COOKIE_AGE = 10*60 #wylogowuje przy braku aktywności na stronie, wartość w sek

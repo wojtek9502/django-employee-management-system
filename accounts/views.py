@@ -7,14 +7,19 @@ from dal import autocomplete
 from accounts import models
 from accounts import forms
 
+from django.contrib.auth.decorators import login_required
+
+
+
 # Create your views here.
+@login_required
 def register(request):
 
     registered = False
 
     if request.method == "POST":
         user_form = forms.UserCreateForm(data=request.POST)
-        profile_form = forms.ProfileForm(request.POST, request.FILES)
+        profile_form = forms.ProfileForm(data=request.POST)
 
         if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
@@ -25,6 +30,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             # w modelu profile jest pole user z relacja 1do1 wiec uzupelniamy je
             profile.user = user
+            profile.image = request.FILES['image'] #dołączenie zdjęcia do profilu
             profile.save()
 
             registered = True

@@ -44,7 +44,7 @@ class UserProfileInfo(models.Model):
     image = models.ImageField(upload_to='avatars/', default=None, null=True, blank=True)
 
     def __str__(self):
-        return self.user.get_full_name() + ',  PESEL: ' + self.pesel
+        return str(self.user.id) +', ' + self.user.get_full_name() + ',  PESEL: ' + self.pesel
 
 class UserAccessModel(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING, verbose_name='Użytkownik', related_name='user_access')

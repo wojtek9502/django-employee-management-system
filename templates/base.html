@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Employee Management System">
 
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.9.0/css/all.css" rel="stylesheet">
 
     <!-- Bootstrap4 -->
     <link rel="stylesheet" href="{% static '/bootstrap/css/bootstrap.min.css' %}">
@@ -19,32 +19,30 @@
 
     {% block head_block %}{% endblock %}
 
-<script>
-jQuery(function($) {
+    <script>
+    jQuery(function($) {
 
-$(".sidebar-dropdown > a").click(function() {
-    $(".sidebar-submenu").slideUp(200);
-    if ($(this).parent().hasClass("active")) {
-        $(".sidebar-dropdown").removeClass("active");
-        $(this).parent().removeClass("active");
-    } else {
-        $(".sidebar-dropdown").removeClass("active");
-        $(this).next(".sidebar-submenu").slideDown(200);
-        $(this).parent().addClass("active");
-    }
-});
+    $(".sidebar-dropdown > a").click(function() {
+        $(".sidebar-submenu").slideUp(200);
+        if ($(this).parent().hasClass("active")) {
+            $(".sidebar-dropdown").removeClass("active");
+            $(this).parent().removeClass("active");
+        } else {
+            $(".sidebar-dropdown").removeClass("active");
+            $(this).next(".sidebar-submenu").slideDown(200);
+            $(this).parent().addClass("active");
+        }
+    });
 
-$("#close-sidebar").click(function() {
-    $(".page-wrapper").removeClass("toggled");
-});
+    $("#close-sidebar").click(function() {
+        $(".page-wrapper").removeClass("toggled");
+    });
 
-$("#show-sidebar").click(function() {
-    $(".page-wrapper").addClass("toggled");
-});
-});
-</script>
-
-
+    $("#show-sidebar").click(function() {
+        $(".page-wrapper").addClass("toggled");
+    });
+    });
+    </script>
 
 </head>
 
@@ -103,14 +101,14 @@ $("#show-sidebar").click(function() {
 
                 <li>
                   <a href="{% url 'holiday_app:holidays_list' %}">
-                    <i class="fa fa-file-alt"></i>
+                      <i class="fa fa-sun"></i>
                     <span>Urlopy</span>
                   </a>
                 </li>
 
                 <li>
                   <a href="{% url 'resources_app:resources_list' %}">
-                    <i class="fa fa-file-alt"></i>
+                    <i class="fa fa-car"></i>
                     <span>Zasoby</span>
                   </a>
                 </li>
@@ -211,6 +209,23 @@ $("#show-sidebar").click(function() {
                     <span>Panel administratora</span>
                   </a>
                 </li>
+
+                <li class="sidebar-dropdown">
+                    <a href="#">
+                      <i class="fa fa-user-shield"></i>
+                      <span>Zarządzaj użytkownikami</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li>
+                          <a href="#">Lista użytkowników</a>
+                        </li>
+                        <li>
+                          <a href="{% url 'accounts:signup' %}">Utwórz konto użytkownika</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
                 {% endif %}
 
                 <li>
