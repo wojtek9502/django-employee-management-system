@@ -7,25 +7,21 @@
 
 <div class="container">
     <div class="page-title">
-        <h2>Projekty</h2>
+        <h2>Zasoby</h2>
     </div>
-
+    
     {% if user.is_superuser %}
         <div class="text-center">
-            <a class="btn btn-primary" href="{% url 'project_app:project_create' %}">Dodaj projekt</a>
+            <a class="btn btn-primary" href="{% url 'resources_app:resource_create' %}">Dodaj zasób</a>
         </div>
     {% endif %}
 
-
     <div class="search-bar">
-    <form class="form-inline" action="{% url 'project_app:projects_list' %}" method="GET">
+    <form class="form-inline" action="" method="GET">
         <div class="input-group">
-            <input type="search" class="form-control" name="search_query" placeholder="Wyszukaj">
+            <input type="search" class="form-control" name="search_query" placeholder="Wyszukaj" required>
             <select class="search-select" name="search_type">
                 <option value="name" selected>Nazwa</option>
-                <option value="client" selected>Klient</option>
-                <option value="number">Numer</option>
-                <option value="PM">PM</option>
             </select>
             <div class="input-group-append search-button">
                 <button class="btn btn-primary" type="submit">Szukaj</button>
@@ -39,34 +35,40 @@
                 <tr>
                     <th scope="col">Opcje</th>
                     <th scope="col">Lp.</th>
+                    <th scope="col">Zdjęcie</th>
                     <th scope="col">Nazwa</th>
-                    <th scope="col">Klient</th>
-                    <th scope="col">PM</th>
-                    <th scope="col">Numer</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Data rozpoczęcia</th>
-                    <th scope="col">Data zakończenia</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Stan</th>
+                    <th scope="col">Osoba wypożyczająca</th>
+                    <th scope="col">Rok produkcji</th>
+                    <th scope="col">Marka</th>
                 </tr>
             </thead>
             <tbody>
-                {% for project in user_projects_list %}
+                {% for resource in resources %}
                 <tr>
                     <td>
-                        <a href="{% url 'project_app:project_detail' pk=project.pk %}"><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20"></a>
+                            
                         {% if user.is_superuser %}
-                            <a href="{% url 'project_app:project_delete' pk=project.pk %}"><img src="{% static 'website_icons/del_ico.png' %}" alt="Usuń" width="20" height="20"></a>
-                            <a href="{% url 'project_app:project_update' pk=project.pk %}"><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edytuj" width="20" height="20"></a>
+                            
                         {% endif %}
                     </td>
                     
                     <td>{{ forloop.counter }}</td>
-                    <td>{{project.name|check_empty}}</td>
-                    <td>{{project.client|check_empty}}</td>
-                    <td>{{project.id_project_pm.get_full_name|check_empty}}</td>
-                    <td>{{project.number|check_empty}}</td>
-                    <td>{{project.status|check_empty}}</td>
-                    <td>{{project.start_date|check_empty}}</td>
-                    <td>{{project.end_date|check_empty}}</td>
+
+                    {% if resource.image %}
+                        <td> <img src="{{resource.image.url}}" alt="" width="60px" height="60px"> </td>
+                    {% else %}
+                        <td></td>
+                    {% endif %}
+
+                    <td>{{resource.name|check_empty}}</td>
+                    <td>{{resource.model|check_empty}}</td>
+                    <td>{{resource.resource_state}}</td>
+                    <td>{{resource.user.get_full_name}}</td>
+                    <td>{{resource.production_year}}</td>
+                    <td>{{resource.brand}}</td>
+
                 </tr>
                 {% endfor %}
             </tbody>
@@ -102,10 +104,10 @@
 
     <div class="table-legend">
         <p><b>Legenda:</b></p>
-        <p><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20">Szczegóły projektu</p>
+        <p><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20">Szczegóły zasobu</p>
         {% if user.is_superuser %}
-            <p><img src="{% static 'website_icons/del_ico.png' %}" alt="Szczegóły" width="20" height="20">Usuń projekt</p>
-            <p><img src="{% static 'website_icons/edit_ico.png' %}" alt="Szczegóły" width="20" height="20">Edytuj projekt</p>
+            <p><img src="{% static 'website_icons/del_ico.png' %}" alt="Usuń" width="20" height="20">Usuń zasób</p>
+            <p><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edytuj" width="20" height="20">Edytuj zasób</p>
         {% endif %}
     </div>
 

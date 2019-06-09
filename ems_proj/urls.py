@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('ems_app.urls')),
     path('projects/', include('project_app.urls')),
     path('holiday/', include('holiday_app.urls')),
+    path('resources/', include('resources_app.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('accounts/', include('django.contrib.auth.urls')),

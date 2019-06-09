@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+<div class="container">
+    <div class="jumbotron">
+        <div class="page-title">
+            <h2>Szczegóły urlopu </h2>
+        </div>
+        <div class="detail-view-content">
+            <ul>
+                <li><b>Pracownik: </b> {{holiday.user.get_full_name}} </li>
+                <li><b>Osoba zatwierdzająca: </b> {{holiday.approver_user.get_full_name}} </li>
+                <li><b>Data rozpoczęcia: </b> {{holiday.start_date}} </li>
+                <li><b>Data zakończenia: </b> {{holiday.end_date}} </li>
+                <li><b>Czy wykorzystane: </b> {% if holiday.is_used %} Tak {% else %} Nie {% endif %} </li>
+                <li><b>Czy zatwierdzone: </b> {% if holiday.is_approved %} Tak {% else %} Nie {% endif %} </li>
+            </ul>              
+        </div>
+        <a class="detail-view-btn btn btn-dark" href="javascript:history.back()">Powrót</a>
+
+    </div>    
+</div>
+{% endblock %}
