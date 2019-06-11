@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, DetailView, UpdateView
-from braces.views import LoginRequiredMixin
+from django.views.generic import TemplateView, DetailView, UpdateView, ListView
+from braces.views import LoginRequiredMixin, SuperuserRequiredMixin
 from dal import autocomplete
 
 from accounts import models
@@ -30,7 +30,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             # w modelu profile jest pole user z relacja 1do1 wiec uzupelniamy je
             profile.user = user
-            profile.image = request.FILES['image'] #dołączenie zdjęcia do profilu
+            profile.image = request.FILES['image'] #dołączenie zdjęcia do profiluvisual
             profile.save()
 
             registered = True
@@ -61,6 +61,31 @@ class MyProfileTemplateView(LoginRequiredMixin, TemplateView):
         return context
 
 
+
+
+
+#### MANGE USERS VIEWS
+class UsersListView(LoginRequiredMixin, SuperuserRequiredMixin, ListView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.UserProfileInfo
+    paginate_by = 10
+    context_object_name = "users_profiles_list"
+    template_name = 'manage_accounts/users_list.html'
+
+    def get_queryset(self):
+        search_query = self.request.GET.get("search_query")
+        search_type = self.request.GET.get("search_type")
+        if search_query is not None:
+            if search_type == "full_name":
+                return models.UserProfileInfo.objects.filter(user__first_name__icontains=search_query) | models.UserProfileInfo.objects.filter(user__last_name__icontains=search_query)
+            elif search_type == "phone":
+                authors_result = models.UserProfileInfo.objects.filter(phone__icontains=search_query)
+                return authors_result
+            elif search_type == "pesel":
+                return models.UserProfileInfo.objects.filter(pesel__icontains=search_query)
+        else:
+            return models.UserProfileInfo.objects.all()
+
 class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
 
@@ -82,6 +107,64 @@ class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
             return forms.ProfileUpdateForm
 
 
+class UserDetailView(LoginRequiredMixin, SuperuserRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.UserProfileInfo
+    context_object_name = "user_profile"
+    template_name = 'manage_accounts/user_detail.html'
+
+class UserGrantDetailView(LoginRequiredMixin, SuperuserRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.UserProfileInfo
+    context_object_name = "user_profile" 
+    template_name = 'manage_accounts/user_grant.html'
+
+    def post(self, request, pk):
+        userProfileInfoObj = models.UserProfileInfo.objects.get(id=pk)
+        userProfileInfoObj.user.is_superuser = True
+        userProfileInfoObj.user.save() 
+        return redirect('accounts:users_list')
+
+
+class UserGetRightsDetailView(LoginRequiredMixin, SuperuserRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.UserProfileInfo
+    context_object_name = "user_profile"
+    template_name = 'manage_accounts/user_get_rights.html'
+
+    def post(self, request, pk):
+        userProfileInfoObj = models.UserProfileInfo.objects.get(id=pk)
+        userProfileInfoObj.user.is_superuser = False
+        userProfileInfoObj.user.save()  # zapisz usera
+        return redirect('accounts:users_list')
+
+class UserActivateDetailView(LoginRequiredMixin, SuperuserRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.UserProfileInfo
+    context_object_name = "user_profile"
+    template_name = 'manage_accounts/user_activate.html'
+
+    def post(self, request, pk):
+        userProfileInfoObj = models.UserProfileInfo.objects.get(id=pk)
+        userProfileInfoObj.user.is_active = True
+        userProfileInfoObj.user.save()  # zapisz usera
+        return redirect('accounts:users_list')
+
+
+class UserDeactivateDetailView(LoginRequiredMixin, SuperuserRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.UserProfileInfo
+    context_object_name = "user_profile"
+    template_name = 'manage_accounts/user_deactivate.html'
+
+    def post(self, request, pk):
+        userProfileInfoObj = models.UserProfileInfo.objects.get(id=pk)
+        userProfileInfoObj.user.is_active = False
+        userProfileInfoObj.user.save()  
+        return redirect('accounts:users_list')
+
+
+### AUTOCOMPLETE
 class UserAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !

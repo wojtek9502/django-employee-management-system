@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+
+{% block body_block %}
+<div class="container">
+    <div class="page-title">
+        <h2>Zarządzaj użytkownikami</h2>
+    </div>
+
+
+<div class="search-bar">
+<form class="form-inline" action="{% url 'accounts:users_list' %}" method="GET">
+    <div class="input-group">
+        <input type="search" class="form-control" name="search_query" placeholder="Wyszukaj">
+        <select class="search-select" name="search_type">
+            <option value="full_name" selected>Imie i/lub nazwisko</option>
+            <option value="phone">Telefon</option>
+            <option value="pesel">PESEL</option>
+        </select>
+        <div class="input-group-append search-button">
+            <button class="btn btn-primary" type="submit">Szukaj</button>
+        </div>
+    </div>
+</form>
+</div>
+
+      <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Opcje</th>
+                    <th scope="col">Imię i nazwisko</th>
+                    <th scope="col">PESEL</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Czy aktywny</th>
+                    <th scope="col">Typ konta</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for user_profile in users_profiles_list %}
+                    <tr>
+                        <td>
+                            <!-- Profil usera -->
+                            <a href="{% url 'accounts:user_detail' pk=user_profile.user.pk %}"><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20"></a>
+                            
+                            <!-- Aktywowanie usera -->
+                            {% if user.is_superuser and user_profile.user.is_active == False %}
+                                <a href="{% url 'accounts:user_activate' pk=user_profile.pk %}"><img src="{% static 'website_icons/activate_user_ico.png' %}" alt="Aktywuj konto" width="20" height="20"></a>
+                            {% endif %}
+                            
+                            <!-- Dezaktywowanie usera -->
+                            {% if user_profile.user.is_active == True and user_profile.user.is_superuser == False %}
+                                <a href="{% url 'accounts:user_deactivate' pk=user_profile.pk %}"><img src="{% static 'website_icons/deactivate_user_ico.png' %}" alt="Usuń konto" width="20" height="20"></a> 
+                            {% endif %}
+
+                            <!-- Nadanie praw superusera -->
+                            {% if user_profile.user.is_active == True and user_profile.user.is_superuser == False %}
+                                <a href="{% url 'accounts:user_grant' pk=user_profile.pk %}"><img src="{% static 'website_icons/grant_ico.png' %}" alt="Nadaj uprawnienia bibliotekrza" width="20" height="20"></a>
+                            {% endif %}
+                            
+                            <!-- Odebranie praw superusera -->
+                            {% if user.id is not user_profile.user.id and user_profile.user.is_active == True and user_profile.user.is_superuser == True %}
+                                <a href="{% url 'accounts:get_rights' pk=user_profile.pk %}"><img src="{% static 'website_icons/get_rights_ico.png' %}" alt="Odebranie uprawnienia bibliotekrza" width="20" height="20"></a>
+                            {% endif %}
+                        </td>
+
+                        <td>{{user_profile.user.get_full_name}}</td>
+                        <td>{{user_profile.pesel}}</td>
+                        <td>{{user_profile.user.email}}</td>
+                        <td>{{user_profile.phone}}</td>
+                        
+
+                        <td>
+                            {% if user_profile.user.is_active %}
+                                Tak
+                            {% else %}
+                                Nie
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if user_profile.user.is_superuser %}
+                                Kierownik
+                            {% else %}
+                                Pracownik
+                            {% endif %}
+                        </td>
+                        
+                    </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    <!-- pagination bar -->
+    <div class="pagination_bar">
+        {% if is_paginated %}
+        <div class="btn-group pagination_bar" role="group">
+            
+            {% if page_obj.has_previous %}
+                <a class="btn btn-light disable" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            {% else %}
+                <a class="btn btn-light"><span>&laquo;</span></a>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                <a  class="btn btn-dark active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                {% else %}
+                <a class="btn btn-light" href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+                
+            {% if page_obj.has_next %}
+            <a class="btn btn-light" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            {% else %}
+            <a type="button" class="btn btn-light"><span>&raquo;</span></a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="table-legend">
+        <p><b>Legenda:</b></p>
+        <p><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20">Zobacz profil</p>
+        <p><img src="{% static 'website_icons/deactivate_user_ico.png' %}" alt="Usuń wypozyczenie" width="20" height="20">Dezaktywwuj konto</p>
+        <p><img src="{% static 'website_icons/activate_user_ico.png' %}" alt="Aktywuj użytkownika" width="20" height="20">Aktywuj konto</p>
+        <p><img src="{% static 'website_icons/grant_ico.png' %}" alt="Nadaj uprawnienia" width="20" height="20">Nadaj uprawnienia</p>
+        <p><img src="{% static 'website_icons/get_rights_ico.png' %}" alt="Odbierz uprawnienia" width="20" height="20">Odbierz uprawnienia</p>
+    </div>
+
+</div>
+
+{% endblock %}
+
+

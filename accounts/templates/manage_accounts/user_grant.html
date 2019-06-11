@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>Nadać uprawnienia?</h2>
+        <ul>
+                <li><b>Imię i nazwisko: </b>{{user_profile.user.get_full_name}}</li>
+                <li><b>Email: </b> {{user_profile.user.email}}</li>
+                <li><b>Telefon: </b>{{user_profile.phone}}</li>
+                <li><b>PESEL: </b>{{user_profile.pesel}} </li>
+                <li><b>Adres: </b>{{user_profile.street}}, {{user_profile.house_number}}, {{user_profile.post_code}} {{user_profile.city}} </li>
+        </ul>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-success" value="Nadaj prawa">
+            <a class="btn btn-primary" href=javascript:history.back()>Powrót</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body_block %}
+
+
+
+<div class="container text-center">
+        <div class="page-title">
+            <h3>Szczegóły użytkownika </h3>
+        </div>
+
+        <ul>
+            <li><b>Imię i nazwisko: </b>{{user_profile.user.get_full_name}}</li>
+            <li><b>Email: </b>{{user_profile.user.email}}</a></li>
+            <li><b>Telefon: </b>{{user_profile.phone}}</li>
+            <li><b>PESEL: </b>{{user_profile.pesel}} </li>
+            <li><b>Adres: </b>{{user_profile.street}} {{user_profile.house_number}} {{user_profile.post_code}} {{user_profile.city}} </li>
+            <br>
+
+            <li><b>Typ konta: </b>
+                {% if user_profile.user.is_superuser %}
+                    Kierownik
+                {% else %}
+                    Pracownik
+                {% endif %}
+            </li>
+            <li><b>Dołączył dnia: </b> {{user_profile.user.date_joined}}</li>
+            <li><b>Ostatnie logowanie dnia: </b> {{user_profile.user.last_login}} </li>
+            <li><b>Czy konto aktywne: </b>
+                {% if user_profile.user.is_active %}
+                    Tak
+                {% else %}
+                    Nie
+                {% endif %}
+            </li>
+        </ul>
+        <br>
+
+
+        
+        <!-- Aktywowanie usera -->
+        {% if user.is_superuser and user_profile.user.is_active == False %}
+            <div class="button">
+                <a href="{% url 'accounts:user_activate' pk=user_profile.pk %}"><input type="submit" class="btn btn-success button" value="Aktywuj konto"></a>
+            </div>
+        {% endif %}
+                            
+        <!-- Dezaktywowanie usera -->
+        {% if user_profile.user.is_active == True and user_obj_borrow.count == 0 and user_profile.user.is_superuser == False %}
+            <div class="button">
+                <a href="{% url 'accounts:user_deactivate' pk=user_profile.pk %}"><input type="submit" class="btn btn-danger button" value="Dezaktywuj konto"></a> 
+            </div>
+        {% endif %}
+
+        <!-- Nadanie praw superusera -->
+        {% if user_profile.user.is_active == True and user_profile.user.is_superuser == False %}
+            <div class="button">
+                <a href="{% url 'accounts:user_grant' pk=user_profile.pk %}"><input type="submit" class="btn btn-success" value="Nadaj uprawnienia"></a>
+            </div>
+        {% endif %}
+                            
+         <!-- Odebranie praw superusera -->
+        {% if user.id is not user_profile.user.id and user_profile.user.is_active == True and user_profile.user.is_superuser == True %}
+            <div class="button">
+                <a href="{% url 'accounts:get_rights' pk=user_profile.pk %}"><input type="submit" class="btn btn-danger" value="Odbierz uprawnienia"></a>
+            </div>
+        {% endif %}
+        
+        <div class="borrow_list_back_link button">
+            <a href="javascript:history.back()"><input type="button" class="btn btn-dark" value="Powrót"></a>
+        </div>
+
+</div>
+{% endblock %}

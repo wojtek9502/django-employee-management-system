@@ -29,5 +29,12 @@ urlpatterns = [ #wiazanie widoku z django z templatka login.html
 
     path('my_profile/', views.MyProfileTemplateView.as_view(), name='my_profile'),
     path('my_profile_update/<int:pk>/', views.UpdateMyProfileView.as_view(), name='my_profile_update'),
-    
+
+
+    path('users_list/', views.UsersListView.as_view(), name='users_list'),
+    path('<int:pk>/', views.UserDetailView.as_view(), name='user_detail'),
+    path('user_grant/<int:pk>/', views.UserGrantDetailView.as_view(), name='user_grant'),
+    path('user_activate/<int:pk>/', views.UserActivateDetailView.as_view(), name='user_activate'),
+    path('user_deactivate/<int:pk>/', views.UserDeactivateDetailView.as_view(), name='user_deactivate'),
+    path('get_rights/<int:pk>/', views.UserGetRightsDetailView.as_view(), name='get_rights'),
 ]  
