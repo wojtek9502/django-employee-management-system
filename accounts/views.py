@@ -97,7 +97,7 @@ class UpdateMyProfileView(LoginRequiredMixin, UpdateView):
         return self.request.user.user_profile
 
     def get_success_url(self):
-            return reverse('index')
+            return reverse('accounts:my_profile')
 
 
     def get_form_class(self):
