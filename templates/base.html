@@ -93,51 +93,72 @@
                 </li>
 
                 <li>
-                  <a href="{% url 'project_app:projects_list' %}">
-                    <i class="fa fa-file-alt"></i>
-                    <span>Projekty</span>
+                  <a href="{% url 'ems_app:index' %}">
+                    <i class="fa fa-warehouse"></i>
+                    <span>Dashboard</span>
                   </a>
                 </li>
 
-                <li>
-                  <a href="{% url 'holiday_app:holidays_list' %}">
-                      <i class="fa fa-sun"></i>
-                    <span>Urlopy</span>
-                  </a>
-                </li>
-
-                <li>
-                  <a href="{% url 'resources_app:resources_list' %}">
-                    <i class="fa fa-car"></i>
-                    <span>Zasoby</span>
-                  </a>
+    
+                 <li class="sidebar-dropdown">
+                    <a>
+                      <i class="fa fa-file-alt"></i>
+                      <span>Projekty</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li>
+                          <a href="{% url 'project_app:projects_list' %}">Lista projetków</a>
+                        </li>
+                        {% if user.is_superuser %}
+                          <li>
+                            <a href="{% url 'project_app:project_create' %}">Dodaj projekt</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </div>
                 </li>
 
                 <li class="sidebar-dropdown">
-                  <a href="#">
-                    <i class="far fa-gem"></i>
-                    <span>Components</span>
+                  <a>
+                    <i class="fa fa-sun"></i>
+                    <span>Urlopy</span>
                   </a>
                   <div class="sidebar-submenu">
                     <ul>
                       <li>
-                        <a href="#">General</a>
+                        <a href="{% url 'holiday_app:holidays_list' %}">Lista urlopów</a>
                       </li>
-                      <li>
-                        <a href="#">Panels</a>
-                      </li>
-                      <li>
-                        <a href="#">Tables</a>
-                      </li>
-                      <li>
-                        <a href="#">Icons</a>
-                      </li>
-                      <li>
-                        <a href="#">Forms</a>
-                      </li>
+                      {% if user.is_superuser %}
+                        <li>
+                          <a href="{% url 'holiday_app:holiday_create' %}">Dodaj urlop</a>
+                        </li>
+                      {% endif %}
                     </ul>
                   </div>
                 </li>
+
+                <li class="sidebar-dropdown">
+                    <a>
+                      <i class="fa fa-car"></i>
+                      <span>Zasoby</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li>
+                          <a href="{% url 'resources_app:resources_list' %}">Lista zasobów</a>
+                        </li>
+                        {% if user.is_superuser %}
+                          <li>
+                            <a href="{% url 'resources_app:resource_create' %}">Dodaj zasób</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </div>
+                  </li>
+  
+
+
                 <li class="sidebar-dropdown">
                   <a href="#">
                     <i class="fa fa-chart-line"></i>
@@ -182,7 +203,7 @@
 
                 {% if user.user_profile %}
                   <li class="sidebar-dropdown">
-                      <a href="#">
+                      <a>
                         <i class="fa fa-users"></i>
                         <span>Twój profil</span>
                       </a>
@@ -211,7 +232,7 @@
                 </li>
 
                 <li class="sidebar-dropdown">
-                    <a href="#">
+                    <a>
                       <i class="fa fa-user-shield"></i>
                       <span>Zarządzaj użytkownikami</span>
                     </a>

@@ -17,9 +17,8 @@ class UserCreateForm(UserCreationForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = models.UserProfileInfo
-        fields = ('phone', 'pesel', 'street',
-                  'house_number', 'city', 'post_code', 'image',
-                  'user_manager', 'user_work_hours', 'user_state')
+        fields = ('user_manager', 'user_work_hours', 'user_state', 'phone', 'pesel', 'street',
+                  'house_number', 'city', 'post_code', 'image')
         labels = {
             'user_manager': 'Kierownik',
             'user_work_hours': 'Godziny pracy',
