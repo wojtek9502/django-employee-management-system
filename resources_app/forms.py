@@ -6,7 +6,7 @@ from dal import autocomplete
 class ResourceCreateForm(forms.ModelForm):
     class Meta:
         model = models.ResourceModel
-        fields = ['is_available', 'name', 'production_year', 'resource_state', 'image', 'brand', 'model', 'info']
+        fields = ['name', 'production_year', 'resource_state', 'image', 'brand', 'model', 'info', 'is_available']
         widgets = {
             'approver_user': autocomplete.ModelSelect2(
                 url='user_admin_autocomplete',
