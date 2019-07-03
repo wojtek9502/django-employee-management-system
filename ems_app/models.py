@@ -5,7 +5,7 @@ from resources_app.models import ResourceModel
 
 
 class EntranceExitReason(models.Model):
-    reason_description = models.CharField(max_length=200, verbose_name='Miejsce')
+    reason_description = models.CharField(max_length=200, verbose_name='opis')
 
     def __str__(self):
         return self.reason_description
