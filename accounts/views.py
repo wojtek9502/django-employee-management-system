@@ -122,6 +122,7 @@ class UserGrantDetailView(LoginRequiredMixin, SuperuserRequiredMixin, DetailView
     def post(self, request, pk):
         userProfileInfoObj = models.UserProfileInfo.objects.get(id=pk)
         userProfileInfoObj.user.is_superuser = True
+        userProfileInfoObj.user.is_staff = True
         userProfileInfoObj.user.save() 
         return redirect('accounts:users_list')
 
@@ -135,6 +136,7 @@ class UserGetRightsDetailView(LoginRequiredMixin, SuperuserRequiredMixin, Detail
     def post(self, request, pk):
         userProfileInfoObj = models.UserProfileInfo.objects.get(id=pk)
         userProfileInfoObj.user.is_superuser = False
+        userProfileInfoObj.user.is_staff = False
         userProfileInfoObj.user.save()  # zapisz usera
         return redirect('accounts:users_list')
 
