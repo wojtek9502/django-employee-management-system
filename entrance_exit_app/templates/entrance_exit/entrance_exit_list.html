@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+{% load ems_extras %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class="page-title">
+        <h2>Delegacje</h2>
+    </div>
+
+    {% if user.is_superuser %}
+        <div class="text-center">
+            <a class="btn btn-primary" href="">Dodaj delegacje</a>
+        </div>
+    {% endif %}
+
+
+    <div class="search-bar">
+    <form class="form-inline" action="{% url 'project_app:projects_list' %}" method="GET">
+        <div class="input-group">
+            <input type="search" class="form-control" name="search_query" placeholder="Wyszukaj">
+            <select class="search-select" name="search_type">
+                <option value="name" selected>Nazwa</option>
+                <option value="client" selected>Klient</option>
+                <option value="number">Numer</option>
+                <option value="PM">PM</option>
+            </select>
+            <div class="input-group-append search-button">
+                <button class="btn btn-primary" type="submit">Szukaj</button>
+            </div>
+        </div>
+    </form>
+    </div>
+
+      <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Opcje</th>
+                    <th scope="col">Lp.</th>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Klient</th>
+                    <th scope="col">PM</th>
+                    <th scope="col">Numer</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Data rozpoczęcia</th>
+                    <th scope="col">Data zakończenia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entrance_exit in entrance_exit_list %}
+                <tr>
+                    <td>
+                        <a href=""><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20"></a>
+                        {% if user.is_superuser %}
+                            <a href=""><img src="{% static 'website_icons/del_ico.png' %}" alt="Usuń" width="20" height="20"></a>
+                            <a href=""><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edytuj" width="20" height="20"></a>
+                        {% endif %}
+                    </td>
+                    
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{entrance_exit.id|check_empty}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    <!-- pagination bar -->
+    <div class="pagination_bar">
+        {% if is_paginated %}
+        <div class="btn-group pagination_bar" role="group">
+            
+            {% if page_obj.has_previous %}
+                <a class="btn btn-light disable" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+            {% else %}
+                <a class="btn btn-light"><span>&laquo;</span></a>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                <a  class="btn btn-dark active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                {% else %}
+                <a class="btn btn-light" href="?page={{ i }}">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+                
+            {% if page_obj.has_next %}
+            <a class="btn btn-light" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+            {% else %}
+            <a type="button" class="btn btn-light"><span>&raquo;</span></a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="table-legend">
+        <p><b>Legenda:</b></p>
+        <p><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20">Szczegóły delegacji</p>
+        {% if user.is_superuser %}
+            <p><img src="{% static 'website_icons/del_ico.png' %}" alt="Szczegóły" width="20" height="20">Usuń delegacji</p>
+            <p><img src="{% static 'website_icons/edit_ico.png' %}" alt="Szczegóły" width="20" height="20">Edytuj delegacji</p>
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock body_block %}

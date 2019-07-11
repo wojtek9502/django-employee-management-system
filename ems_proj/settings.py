@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'project_app',
     'holiday_app',
     'resources_app',
+    'entrance_exit_app',
     'ems_app',
 ]
 
@@ -127,6 +128,9 @@ DATABASES = {
         'PASSWORD': config.get('DB_PASSWORD'),
         'HOST': config.get('DB_HOST'), 
         'PORT': config.get('DB_PORT'),
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 

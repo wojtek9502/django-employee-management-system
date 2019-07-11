@@ -156,31 +156,26 @@
                       </ul>
                     </div>
                   </li>
+
+                  <li class="sidebar-dropdown">
+                    <a>
+                      <i class="fa fa-car"></i>
+                      <span>Delegacje</span>
+                    </a>
+                    <div class="sidebar-submenu">
+                      <ul>
+                        <li>
+                          <a href="{% url 'entrance_exit_app:entrance_exit_list' %}">Lista delegacji</a>
+                        </li>
+                        {% if user.is_superuser %}
+                          <li>
+                            <a href="">Dodaj delegacje</a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                    </div>
+                  </li>
   
-
-
-                <li class="sidebar-dropdown">
-                  <a href="#">
-                    <i class="fa fa-chart-line"></i>
-                    <span>Charts</span>
-                  </a>
-                  <div class="sidebar-submenu">
-                    <ul>
-                      <li>
-                        <a href="#">Pie chart</a>
-                      </li>
-                      <li>
-                        <a href="#">Line chart</a>
-                      </li>
-                      <li>
-                        <a href="#">Bar chart</a>
-                      </li>
-                      <li>
-                        <a href="#">Histogram</a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
                 <li class="sidebar-dropdown">
                   <a href="#">
                     <i class="fa fa-globe"></i>
