@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+
+<div class="container">
+    <h2 class="page-title">Czy chcesz usunąć urlop?</h2>
+    <h4>Szczegóły</h4>
+    <div>
+            <ul>
+                    <li><b>Osoba: </b> {{entrance_exit.user.get_full_name}} </li>
+                    <li><b>Osoba zatwierdzająca: </b> {{entrance_exit.approver_user.get_full_name}} </li>
+                    <li><b>Powód: </b> {{entrance_exit.reason.reason_description}} </li>
+                    <li><b>Projekt: </b> {{entrance_exit.project.name}} </li>
+                    <li><b>Miejsce: </b> {{entrance_exit.place}} </li>
+    
+                    {% if entrance_exit.resource.name %}
+                        <li><b>Zasób: </b> {{entrance_exit.resource.name}} </li>
+                    {% endif %}
+    
+                    <li><b>Data rozpoczęcia: </b> {{entrance_exit.start_date}} </li>
+                    <li><b>Data zakończenia: </b> {{entrance_exit.end_date}} </li>
+                    <li><b>Czy zatwierdzone: </b> {% if entrance_exit.is_approved %} Tak {% else %} Nie {% endif %} </li>
+            </ul>               
+    </div>
+
+        <form method="POST">
+            {% csrf_token %}
+            <a class="btn btn-dark" href="javascript:history.back()">Powrót</a>
+            <input type="submit" class="btn btn-danger" value="Usuń">
+        </form>
+</div>
+{% endblock %}

@@ -169,7 +169,7 @@
                         </li>
                         {% if user.is_superuser %}
                           <li>
-                            <a href="">Dodaj delegacje</a>
+                            <a href="{% url 'entrance_exit_app:entrance_exit_create' %}">Dodaj delegacje</a>
                           </li>
                         {% endif %}
                       </ul>

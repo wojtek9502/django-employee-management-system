@@ -30,3 +30,40 @@ class EntranceExitListView(LoginRequiredMixin, ListView):
         qs = qs.order_by('start_date')
 
         return qs
+
+class EntranceExitCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('accounts:login')
+    success_url = reverse_lazy("entrance_exit_app:entrance_exit_list")
+
+    form_class = forms.EntranceExitForm
+    
+    model = models.EntranceExitModel
+    template_name = 'entrance_exit/entrance_exit_create.html'
+
+    def get_form_kwargs(self, *args, **kwargs):
+        form_kwargs = super(EntranceExitCreateView, self).get_form_kwargs(*args, **kwargs)
+        form_kwargs['user'] = self.request.user
+        return form_kwargs
+
+class EntranceExitDeleteView(LoginRequiredMixin, SuperuserRequiredMixin, DeleteView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.EntranceExitModel
+    success_url = reverse_lazy("entrance_exit_app:entrance_exit_list")
+
+    context_object_name = "entrance_exit"
+    template_name = 'entrance_exit/entrance_exit_delete.html'
+
+class EntranceExitDetailView(LoginRequiredMixin, DetailView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.EntranceExitModel
+    context_object_name = "entrance_exit"
+    template_name = 'entrance_exit/entrance_exit_detail.html'
+
+class EntranceExitUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+    login_url = reverse_lazy('accounts:login')
+    model = models.EntranceExitModel
+    success_url = reverse_lazy("entrance_exit_app:entrance_exit_list")
+
+    context_object_name = "entrance_exit"
+    form_class = forms.EntranceExitUpdateForm
+    template_name = 'entrance_exit/entrance_exit_update.html'

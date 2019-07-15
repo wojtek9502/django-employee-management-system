@@ -12,19 +12,19 @@
 
     {% if user.is_superuser %}
         <div class="text-center">
-            <a class="btn btn-primary" href="">Dodaj delegacje</a>
+            <a class="btn btn-primary" href="{% url 'entrance_exit_app:entrance_exit_create' %}">Dodaj delegacje</a>
         </div>
     {% endif %}
 
 
     <div class="search-bar">
-    <form class="form-inline" action="{% url 'project_app:projects_list' %}" method="GET">
+    <form class="form-inline" action="{% url 'entrance_exit_app:entrance_exit_list' %}" method="GET">
         <div class="input-group">
             <input type="search" class="form-control" name="search_query" placeholder="Wyszukaj">
             <select class="search-select" name="search_type">
-                <option value="name" selected>Nazwa</option>
-                <option value="client" selected>Klient</option>
-                <option value="number">Numer</option>
+                <option value="project_name" selected>Nazwa projektu</option>
+                <option value="approver_user" selected>Osoba zatwierdzająca</option>
+                <option value="user">Osoba</option>
                 <option value="PM">PM</option>
             </select>
             <div class="input-group-append search-button">
@@ -34,16 +34,18 @@
     </form>
     </div>
 
-      <table class="table table-bordered table-hover">
+      <table class="table table-bordered table-hover style='width:100%'">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">Opcje</th>
                     <th scope="col">Lp.</th>
-                    <th scope="col">Nazwa</th>
-                    <th scope="col">Klient</th>
-                    <th scope="col">PM</th>
-                    <th scope="col">Numer</th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Osoba</th>
+                    <th scope="col">Powód</th>
+                    <th scope="col">Miejsce</th>
+                    <th scope="col">Osoba zatwierdzająca</th>
+                    <th scope="col">Projekt</th>
+                    <th scope="col">Zasoby</th>
+                    <th scope="col">Czy zatwierdzone</th>
                     <th scope="col">Data rozpoczęcia</th>
                     <th scope="col">Data zakończenia</th>
                 </tr>
@@ -52,15 +54,31 @@
                 {% for entrance_exit in entrance_exit_list %}
                 <tr>
                     <td>
-                        <a href=""><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20"></a>
+                        <a href="{% url 'entrance_exit_app:entrance_exit_detail' pk=entrance_exit.pk %}"><img src="{% static 'website_icons/info_ico.png' %}" alt="Szczegóły" width="20" height="20"></a>
                         {% if user.is_superuser %}
-                            <a href=""><img src="{% static 'website_icons/del_ico.png' %}" alt="Usuń" width="20" height="20"></a>
-                            <a href=""><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edytuj" width="20" height="20"></a>
+                            <a href="{% url 'entrance_exit_app:entrance_exit_delete' pk=entrance_exit.pk %}"><img src="{% static 'website_icons/del_ico.png' %}" alt="Usuń" width="20" height="20"></a>
+                            <a href="{% url 'entrance_exit_app:entrance_exit_update' pk=entrance_exit.pk %}"><img src="{% static 'website_icons/edit_ico.png' %}" alt="Edytuj" width="20" height="20"></a>
                         {% endif %}
                     </td>
                     
                     <td>{{ forloop.counter }}</td>
-                    <td>{{entrance_exit.id|check_empty}}</td>
+                    <td>{{entrance_exit.user.get_full_name|check_empty}}</td>
+                    <td>{{entrance_exit.reason|check_empty}}</td>
+                    <td>{{entrance_exit.place|check_empty}}</td>
+                    <td>{{entrance_exit.approver_user|check_empty}}</td>
+                    <td>{{entrance_exit.project.name|check_empty}}</td>
+                    
+                    <td>
+                        {% if entrance_exit.resource.name %}
+                            {{entrance_exit.resource.name|check_empty}}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+
+                    <td>{% if entrance_exit.is_approved %} Tak {% else %} Nie {% endif %}</td>
+                    <td>{{entrance_exit.start_date|check_empty}}</td>
+                    <td>{{entrance_exit.end_date|check_empty}}</td>
                 </tr>
                 {% endfor %}
             </tbody>
