@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from resources_app import models
 from resources_app import forms
 from django.db.models import Q
+from dal import autocomplete
 # Create your views here.
 
 class ResourceListView(LoginRequiredMixin, ListView):
@@ -37,3 +38,16 @@ class ResourceCreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView)
     
     model = models.ResourceModel
     template_name = 'resources/resource_create.html'
+
+
+class ResourceAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return models.ResourceModel.objects.none()
+
+        qs = models.ResourceModel.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q) 
+
+        return qs

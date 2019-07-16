@@ -18,11 +18,25 @@ class EntranceExitForm(forms.ModelForm):
                 ),
             
             'user': autocomplete.ModelSelect2(
-                url='user_admin_autocomplete',
+                url='user_autocomplete',
                 attrs={
                     'data-minimum-input-length': 3,
                     },
                 ),
+
+            'project': autocomplete.ModelSelect2(
+                url='project_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                }
+            ),
+
+            'resource': autocomplete.ModelSelect2Multiple(
+                url='resource_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                }
+            ),
 
             'start_date': DateTimePickerInput(options = { "dateFormat": "d.m.y H:i",}),
             'end_date': DateTimePickerInput(options = { "dateFormat": "d.m.y H:i",}),
@@ -58,6 +72,28 @@ class EntranceExitUpdateForm(forms.ModelForm):
                     },
                 ),
 
+            'user': autocomplete.ModelSelect2(
+                url='user_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                    },
+                ),
+            
+            'project': autocomplete.ModelSelect2(
+                url='project_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                }
+            ),
+
+            'resource': autocomplete.ModelSelect2Multiple(
+                url='resource_autocomplete',
+                attrs={
+                    'data-minimum-input-length': 3,
+                }
+            ),
+
+            
             'start_date': DatePickerInput(options = { "dateFormat": "d.m.y",}),
             'end_date': DatePickerInput(options = { "dateFormat": "d.m.y",}),
         }

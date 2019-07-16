@@ -24,7 +24,12 @@ class ResourceModel(models.Model):
     info =  models.TextField(max_length=500, verbose_name='Uwagi', null=True, blank=True)
 
     def __str__(self):
-        return self.name + " stan: " + str(self.resource_state) + " czy_dostepny: "  + str(self.is_available)
+        is_available_desc = ""
+        if(self.is_available):
+            is_available_desc = "TAK"
+        else:
+            is_available_desc = "NIE"
+        return self.name + " stan: " + str(self.resource_state) + " czy dostepny: "  + is_available_desc
 
 class ResourceHistoryModel(models.Model):
     resource = models.ForeignKey(ResourceModel, on_delete=models.DO_NOTHING, verbose_name='Zasób')

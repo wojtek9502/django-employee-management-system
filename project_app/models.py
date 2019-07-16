@@ -18,5 +18,5 @@ class ProjectModel(models.Model):
     commants = models.TextField(max_length=500, verbose_name='Uwagi', null=True, blank=True)
 
     def __str__(self):
-        return self.name+" number: "+ str(self.number) +" number2: " + str(self.number_2) + " project_pm: " + self.id_project_pm.get_full_name()
+        return self.name+"  nr.: "+ str(self.number)
 

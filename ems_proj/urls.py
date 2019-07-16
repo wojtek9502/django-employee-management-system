@@ -20,6 +20,8 @@ from django.conf.urls.static import static
 
 from ems_app.views import NoPermsPage
 from accounts.views import UserAutocomplete, UserAdminsAutocomplete
+from project_app.views import ProjectsAutocomplete
+from resources_app.views import ResourceAutocomplete
 from django_private_chat import urls as django_private_chat_urls
 
 
@@ -37,6 +39,8 @@ urlpatterns = [
     path('no-permission/', NoPermsPage.as_view(), name="no_permission"),
     path('user-autocomplete/', UserAutocomplete.as_view(),name='user_autocomplete'),
     path('user-admin-autocomplete/', UserAdminsAutocomplete.as_view(),name='user_admin_autocomplete'),
+    path('project-autocomplete/', ProjectsAutocomplete.as_view(),name='project_autocomplete'),
+    path('resource-autocomplete/', ResourceAutocomplete.as_view(),name='resource_autocomplete'),
 ] 
 
 if settings.DEBUG:

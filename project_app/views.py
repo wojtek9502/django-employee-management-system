@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from project_app import models
 from project_app import forms
 from django.db.models import Q
+from dal import autocomplete
 
 # Create your views here.
 
@@ -67,6 +68,19 @@ class ProjectCreateView(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
     form_class = forms.ProjectForm
     model = models.ProjectModel
     template_name = 'projects/project_create.html'
+
+
+class ProjectsAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return models.ProjectModel.objects.none()
+
+        qs = models.ProjectModel.objects.all()
+
+        if self.q:
+            qs = qs.filter(name__istartswith=self.q) 
+
+        return qs
 
 
     
