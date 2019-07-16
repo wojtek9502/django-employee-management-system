@@ -51,3 +51,16 @@ class ResourceAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(name__istartswith=self.q) 
 
         return qs
+
+class ResourceAvailableAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return models.ResourceModel.objects.none()
+
+        qs = models.ResourceModel.objects.all()
+
+        if self.q:
+            qs = qs.filter( Q(name__icontains=self.q) ).filter( Q(is_available=True) )
+            print(qs)
+
+        return qs

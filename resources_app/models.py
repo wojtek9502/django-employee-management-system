@@ -1,18 +1,8 @@
 from django.db import models
 from accounts.models import MyUser
 
-# Create your models here.
-class ResourceStateModel(models.Model):
-    state_description = models.CharField(max_length=50, verbose_name='Stan zasobu')
-
-    def __str__(self):
-        return self.state_description
-
 class ResourceModel(models.Model):
-    user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING, null=True, blank=True, default=None, verbose_name='Pracownik', related_name='resource_user')
-    approver_user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING,  null=True, blank=True, default=None, verbose_name='Osoba zatwierdzająca', related_name='resource_approver_user')
-    resource_state = models.ForeignKey(ResourceStateModel, on_delete=models.DO_NOTHING, verbose_name='Stan zasobu', related_name='resource_state') 
-    is_approved = models.BooleanField(default=False, verbose_name='Czy zatwierdzone')
+    user = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, null=True, blank=True, default=None, verbose_name='Pracownik', related_name='resource_user')
     is_available = models.BooleanField(default=True, verbose_name='Czy dostępny')
     name = models.CharField(max_length=200, default=None, verbose_name='Nazwa zasobu')
     start_date = models.DateField(default=None, null=True, blank=True, verbose_name='Data przydzielenia')
@@ -29,7 +19,7 @@ class ResourceModel(models.Model):
             is_available_desc = "TAK"
         else:
             is_available_desc = "NIE"
-        return self.name + " stan: " + str(self.resource_state) + " czy dostepny: "  + is_available_desc
+        return self.name + " stan: " + " czy dostepny: "  + is_available_desc
 
 class ResourceHistoryModel(models.Model):
     resource = models.ForeignKey(ResourceModel, on_delete=models.DO_NOTHING, verbose_name='Zasób')

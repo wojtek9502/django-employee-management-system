@@ -69,8 +69,14 @@
                     <td>{{entrance_exit.project.name|check_empty}}</td>
                     
                     <td>
-                        {% if entrance_exit.resource.name %}
-                            {{entrance_exit.resource.name|check_empty}}
+                        {% if entrance_exit.resource %}
+                            {% for resource in entrance_exit.resource.all %}
+                                {% if forloop.last %}
+                                    {{resource.name}}
+                                {% else %} 
+                                    {{resource.name}},
+                                {% endif %}
+                            {% endfor %}
                         {% else %}
                             -
                         {% endif %}

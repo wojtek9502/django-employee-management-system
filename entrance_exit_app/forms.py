@@ -3,7 +3,7 @@ from entrance_exit_app import models
 from flatpickr import DatePickerInput, TimePickerInput, DateTimePickerInput
 from dal import autocomplete
 
-class EntranceExitForm(forms.ModelForm):
+class EntranceExitForm(forms.ModelForm):  
     class Meta:
         model = models.EntranceExitModel
         fields = ('user', 'reason', 'approver_user',
@@ -32,7 +32,7 @@ class EntranceExitForm(forms.ModelForm):
             ),
 
             'resource': autocomplete.ModelSelect2Multiple(
-                url='resource_autocomplete',
+                url='resource_available_autocomplete',
                 attrs={
                     'data-minimum-input-length': 3,
                 }
@@ -44,6 +44,8 @@ class EntranceExitForm(forms.ModelForm):
 
     def __init__(self, user, *args, **kwargs):
         super(EntranceExitForm, self).__init__(*args, **kwargs)
+        self.fields['resource'].queryset = models.ResourceModel.objects.filter(is_available=True)
+
         if user.is_superuser == False:
             self.fields['user'].queryset = models.MyUser.objects.filter(id=user.id)
             self.fields.pop('is_approved')
@@ -87,7 +89,7 @@ class EntranceExitUpdateForm(forms.ModelForm):
             ),
 
             'resource': autocomplete.ModelSelect2Multiple(
-                url='resource_autocomplete',
+                url='resource_available_autocomplete',
                 attrs={
                     'data-minimum-input-length': 3,
                 }
@@ -97,6 +99,7 @@ class EntranceExitUpdateForm(forms.ModelForm):
             'start_date': DatePickerInput(options = { "dateFormat": "d.m.y",}),
             'end_date': DatePickerInput(options = { "dateFormat": "d.m.y",}),
         }
+
 
     def clean(self):
         start_date = self.cleaned_data.get("start_date")

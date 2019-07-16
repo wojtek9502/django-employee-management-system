@@ -3,6 +3,7 @@ from django.views.generic import TemplateView, ListView, DetailView, DeleteView,
 from braces.views import SuperuserRequiredMixin, LoginRequiredMixin
 from django.urls import reverse_lazy, reverse
 from entrance_exit_app import models
+from resources_app.models import ResourceModel
 from entrance_exit_app import forms
 from django.db.models import Q
 
@@ -45,6 +46,20 @@ class EntranceExitCreateView(LoginRequiredMixin, CreateView):
         form_kwargs['user'] = self.request.user
         return form_kwargs
 
+    # po utworzeniu jeśli delegacja była zatwierdzona i:
+    # był podany zasób, to zmień zasób na zajęty
+    def form_valid(self, form):
+        response = super(EntranceExitCreateView, self).form_valid(form)
+        entrance_exit_obj = self.object
+
+        if(entrance_exit_obj.is_approved):
+            for resource in entrance_exit_obj.resource.all():
+                resource.is_available = False
+                resource.user = self.request.user
+                resource.save()
+
+        return response
+
 class EntranceExitDeleteView(LoginRequiredMixin, SuperuserRequiredMixin, DeleteView):
     login_url = reverse_lazy('accounts:login')
     model = models.EntranceExitModel
@@ -67,3 +82,26 @@ class EntranceExitUpdateView(LoginRequiredMixin, SuperuserRequiredMixin, UpdateV
     context_object_name = "entrance_exit"
     form_class = forms.EntranceExitUpdateForm
     template_name = 'entrance_exit/entrance_exit_update.html'
+
+    # po utworzeniu jeśli delegacja była zatwierdzona i:
+    # był podany zasób, to zmień zasób na zajęty
+    def form_valid(self, form):
+        #w ez wszystkie wcześniej zawarte w delegacji zasoby i odłącz je
+        original_object = models.EntranceExitModel.objects.get(pk=self.object.pk)
+        for resource_original in original_object.resource.all():
+                resource_original.is_available = True
+                resource_original.user = None
+                resource_original.start_date = None
+                resource_original.end_date = None
+                resource_original.save()
+
+        response = super(EntranceExitUpdateView, self).form_valid(form)
+        new_obj = self.object
+        for resource in new_obj.resource.all():
+            resource.is_available = False
+            resource.user = self.request.user
+            resource.start_date = new_obj.start_date
+            resource.end_date = new_obj.end_date
+            resource.save()
+
+        return response

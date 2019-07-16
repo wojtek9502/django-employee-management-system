@@ -14,8 +14,18 @@
                 <li><b>Projekt: </b> {{entrance_exit.project.name}} </li>
                 <li><b>Miejsce: </b> {{entrance_exit.place}} </li>
 
-                {% if entrance_exit.resource.name %}
-                    <li><b>Zasób: </b> {{entrance_exit.resource.name}} </li>
+                {% if entrance_exit.resource %}
+                    <li><b>Zasób: </b>
+                        {% for resource in entrance_exit.resource.all %}
+                            {% if forloop.last %}
+                             {{resource.name}}
+                            {% else %} 
+                             {{resource.name}},
+                            {% endif %}
+                        {% endfor %}
+                    </li>
+                {% else %}
+                    <li><b>Zasób: </b> - </li>
                 {% endif %}
 
                 <li><b>Data rozpoczęcia: </b> {{entrance_exit.start_date}} </li>

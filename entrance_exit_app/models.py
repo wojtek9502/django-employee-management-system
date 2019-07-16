@@ -14,7 +14,7 @@ class EntranceExitModel(models.Model):
     resource = models.ManyToManyField(ResourceModel, blank=True, default=None, verbose_name='Zasób', related_name='entrance_exit_resource')
     user = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, verbose_name='Pracownik', related_name='entrance_exit_user')
     reason = models.ForeignKey(EntranceExitReason, on_delete=models.DO_NOTHING, verbose_name='Powód', related_name='entrance_exit_reason')
-    approver_user = models.OneToOneField(MyUser, on_delete=models.DO_NOTHING, null=True, blank=True, default=None, verbose_name='Osoba zatwierdzająca', related_name='entrance_exit_approver_user')
+    approver_user = models.ForeignKey(MyUser, on_delete=models.DO_NOTHING, null=True, blank=True, default=None, verbose_name='Osoba zatwierdzająca', related_name='entrance_exit_approver_user')
     project = models.ForeignKey(ProjectModel, on_delete=models.CASCADE, verbose_name='Projekt', related_name='entrance_exit_project')
     start_date = models.DateTimeField(verbose_name='Data rozpoczęcia')
     end_date = models.DateTimeField(verbose_name='Data zakończenia')
