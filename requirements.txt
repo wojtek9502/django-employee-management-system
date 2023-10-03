@@ -5,7 +5,7 @@ Django==2.2
 django-bootstrap4==0.0.8
 django-braces==1.13.0
 django-debug-toolbar==1.11
-Pillow==6.0.0
+Pillow==10.0.1
 python-decouple==3.1
 django-private-chat==0.2.2
 mysqlclient==1.4.2
